@@ -5,7 +5,7 @@ resource "aws_vpc_endpoint" "s3_endpoint" {
   service_name = "com.amazonaws.${var.aws_region}.s3"
   
   tags = {
-   Name = "s3-${var.shard_id}"
+   Name = "${var.shard_short_id}-s3"
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_security_group" "apigateway_vpc_endpoint_sg" {
   }
 
   tags = {
-    Name = "apigateway-${var.vpc_name}"
+    Name = "${var.vpc_name}-apigateway"
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_vpc_endpoint" "apigateway_endpoint" {
   auto_accept         = true
 
   tags = {
-   Name = "apigateway-${var.shard_id}"
+   Name = "${var.shard_short_id}-apigateway"
   }
 }
 
