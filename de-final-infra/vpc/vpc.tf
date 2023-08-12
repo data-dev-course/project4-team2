@@ -26,7 +26,7 @@ resource "aws_nat_gateway" "nat" {
   # This will be generated with array format
   # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
   # If you want to create each resource with independent name, then you have to copy the same code and modify some code
-  count = length(var.availability_zones)
+  count = length(var.availability_zones) - 1
 
   # element is used for select the resource from the array 
   # Usage = element (array, index) => equals array[index]
