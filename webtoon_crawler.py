@@ -188,7 +188,7 @@ def run_multi_process_get_comments(contents_list, current_title_num, total_title
     start_time = time.time()
     
     extended_contents_list = [(link, title, content_name, current_title_num, total_titles, idx+1, len(contents_list)) for idx, (link, title, content_name) in enumerate(contents_list)]
-    pool = mp.Pool(6)
+    pool = mp.Pool(2)
     result = []
     for row in pool.map(get_comments, extended_contents_list):
         result += row
