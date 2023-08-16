@@ -1,5 +1,5 @@
 resource "aws_security_group" "ec2" {
-  name        = "${var.service_name}-${var.vpc_name}"
+  name        = "${var.vpc_name}-${var.service_name}"
   description = "${var.service_name} Instance Security Group"
   vpc_id      = var.target_vpc
 
