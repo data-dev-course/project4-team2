@@ -36,8 +36,8 @@ variable "cidr_numeral_private" {
 
 variable "cidr_numeral_private_mwaa" {
   default = {
-    "0" = "124"
-    "1" = "140"
+    "0" = "128"
+    "1" = "144"
   }
 }
 
