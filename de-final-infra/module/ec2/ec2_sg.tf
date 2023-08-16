@@ -1,4 +1,4 @@
-resource "aws_security_group" "jenkins_ec2" {
+resource "aws_security_group" "ec2" {
   name        = "${var.vpc_name}-${var.service_name}"
   description = "${var.service_name}'s ssh and HTTP traffic allowance Security Group"
   vpc_id      = var.target_vpc
