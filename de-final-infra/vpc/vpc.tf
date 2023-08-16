@@ -26,7 +26,7 @@ resource "aws_nat_gateway" "nat" {
   # This will be generated with array format
   # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
   # If you want to create each resource with independent name, then you have to copy the same code and modify some code
-  count = length(var.availability_zones)
+  count = length(var.availability_zones) - 1
 
   # element is used for select the resource from the array 
   # Usage = element (array, index) => equals array[index]
@@ -153,4 +153,34 @@ resource "aws_route_table_association" "private_db" {
   count          = length(var.availability_zones)
   subnet_id      = element(aws_subnet.private_db.*.id, count.index)
   route_table_id = element(aws_route_table.private_db.*.id, count.index)
+}
+
+# MWAA PRIVATE SUBNETS
+resource "aws_subnet" "private_mwaa" {
+  count  = length(var.availability_zones)-1
+  vpc_id = aws_vpc.main.id
+
+  cidr_block        = "10.${var.cidr_numeral}.${var.cidr_numeral_private_mwaa[count.index]}.0/20"
+  availability_zone = element(var.availability_zones, count.index)
+  tags = {
+    Name = "de-3-2-vpc-mwaa-private-${count.index}"
+    immutable_metadata = "{ \"purpose\": \"internal_${var.vpc_name}\", \"target\": null }"
+    Network = "Private"
+  }
+}
+
+# Route Table for mwaa private subnets
+resource "aws_route_table" "private_mwaa" {
+  vpc_id = aws_vpc.main.id
+  count  = length(var.availability_zones)-1
+  tags = {
+    Name = "de-3-2-vpc-rt-private-maww-${count.index}"
+    Network = "Private"
+  }
+}
+
+resource "aws_route_table_association" "private_mwaa" {
+  count          = length(var.availability_zones)-1
+  subnet_id      = element(aws_subnet.private_mwaa.*.id, count.index)
+  route_table_id = element(aws_route_table.private_mwaa.*.id, count.index)
 }

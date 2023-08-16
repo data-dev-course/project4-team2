@@ -34,6 +34,13 @@ variable "cidr_numeral_private" {
   }
 }
 
+variable "cidr_numeral_private_mwaa" {
+  default = {
+    "0" = "128"
+    "1" = "144"
+  }
+}
+
 variable "cidr_numeral_private_db" {
   default = {
     "0" = "160"
@@ -55,16 +62,6 @@ variable "availability_zones" {
 variable "availability_zones_without_b" {
   type        = list(string)
   description = "A comma-delimited list of availability zones except for ap-northeast-2b"
-}
-
-variable "assume_role_arn" {
-  description = "The role to assume when accessing the AWS API."
-  default     = ""
-}
-
-variable "atlantis_user" {
-  description = "The username that will be triggering atlantis commands. This will be used to name the session when assuming a role. More information - https://github.com/runatlantis/atlantis#assume-role-session-names"
-  default     = "atlantis_user"
 }
 
 variable "subnet_no_private" {
