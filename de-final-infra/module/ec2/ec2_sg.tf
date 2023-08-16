@@ -1,18 +1,30 @@
-resource "aws_security_group" "ec2" {
+resource "aws_security_group" "jenkins_ec2" {
   name        = "${var.vpc_name}-${var.service_name}"
-  description = "${var.service_name} Instance Security Group"
+  description = "${var.service_name}'s ssh and HTTP traffic allowance Security Group"
   vpc_id      = var.target_vpc
 
   ingress {
     from_port = 22
     to_port   = 22
     protocol  = "tcp"
-
     cidr_blocks = var.ext_lb_ingress_cidrs
-
     description = "SSH port"
   }
 
+  ingress {
+    from_port = 8080
+    to_port   = 8080
+    protocol  = "tcp"
+    cidr_blocks = var.ext_lb_ingress_cidrs
+    description = "HTTP Traffic"
+  }
+
+  ingress {
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
+    cidr_blocks = var.ext_lb_ingress_cidrs
+  }
 
   egress {
     from_port   = 0
@@ -22,13 +34,12 @@ resource "aws_security_group" "ec2" {
     description = "Internal outbound traffic"
   }
 
-
   egress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Internal outbound traffic"
+    description = "https any outbound"
   }
 
   egress {
@@ -54,7 +65,7 @@ resource "aws_instance" "public_ec2" {
   }
 
   tags = {
-    Name  = "${var.service_name}-${var.stack}"
+    Name  = "${var.stack}-${var.service_name}"
     app   = "${var.service_name}"
     stack = var.stack
   }
