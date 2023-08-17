@@ -21,7 +21,7 @@ jobs:
 
     - name: List S3 Bucket Content
       run: |
-        aws s3 sync /home/runner/work/project4-team2/airflow/dags/ s3://de-3-2/dags/
+        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/dags/ s3://de-3-2/dags/
       env:
         AWS_DEFAULT_REGION: ap-northeast-2
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
