@@ -1,17 +1,17 @@
 name: DAGs Upload to S3
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - 'main'
+  # pull_request:
+  #   types:
+  #     - closed
+  #   branches:
+  #     - 'main'
   push:
     branches:
       - 'jyj_infra'
-    paths:
-      - 'airflow/dags/**'
-      - 'airflow/plugins/**'
+    # paths:
+    #   - 'airflow/dags/**'
+    #   - 'airflow/plugins/**'
 
 jobs:
   access-s3:
@@ -32,7 +32,7 @@ jobs:
     - name: Zip the directory and Upload to S3
       run: |
         zip -r plugins.zip airflow/plugins/
-        aws s3 cp plugins.zip s3://de-3-2/plugins/
+        aws s3 cp plugins.zip s3://de-3-2/mwaa_plugins/
 
 
       env:
