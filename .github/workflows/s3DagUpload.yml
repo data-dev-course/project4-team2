@@ -1,9 +1,7 @@
 name: DAGs Upload to S3
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
     branches:
       - 'jyj_infra'
     paths:
