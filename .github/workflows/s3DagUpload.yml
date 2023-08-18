@@ -6,6 +6,8 @@ on:
       - closed
     branches:
       - 'main'
+  push:
+    branches:
       - 'jyj_infra'
     paths:
       - 'airflow/dags/**'
