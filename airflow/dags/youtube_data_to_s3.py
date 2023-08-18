@@ -9,18 +9,17 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 
 
-def upload_to_s3(**kwargs):
-    print(kwargs['name'])
-    print(kwargs['context'])
-    src_date = kwargs['name']
-
+def upload_to_s3(data):
+    print(data[0])
+    print(data[1])
+    src_date = data[0]
     s3_hook = S3Hook()
     s3_bucket = 'de-3-2'
     s3_folder = 'raw_data/youtube/'
     s3_key = f'{s3_folder}/{src_date}/{src_date}.csv'
     
     s3_hook.load_string(
-        string_data= kwargs['context'],
+        string_data= data[1],
         key=s3_key,
         bucket_name=s3_bucket,
         replace=True
@@ -126,7 +125,8 @@ def get_data():
         
     df = pd.DataFrame(comments, columns=[['scr_date','video_id','channel_id','video_title','video_published_at','video_link','author','text', 'comment_publishd_at', 'comment_updated_at']])
     scr_date = datetime.now().strftime("%Y-%m-%d")
-    return {"name": scr_date, "context": df.to_csv(f'{scr_date}_youtube.csv')}
+    # return {"name": scr_date, "context": df.to_csv(f'{scr_date}_youtube.csv')}
+    return (scr_date, df.to_csv())
 
 DAG_ID = 'youtube_data_to_S3'
 
@@ -151,7 +151,7 @@ with DAG(
     upload_to_s3_task = PythonOperator(
         task_id='upload_to_s3',
         python_callable=upload_to_s3,
-        op_kwargs=get_youtube_data_task.output
+        op_args=[get_youtube_data_task.output]
     )
     
     get_youtube_data_task >> upload_to_s3_task
