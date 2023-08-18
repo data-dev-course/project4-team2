@@ -1,17 +1,15 @@
 name: DAGs Upload to S3
 
 on:
-  # pull_request:
-  #   types:
-  #     - closed
-  #   branches:
-  #     - 'main'
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
+      - 'main'
       - 'jyj_infra'
-    # paths:
-    #   - 'airflow/dags/**'
-    #   - 'airflow/plugins/**'
+    paths:
+      - 'airflow/dags/**'
+      - 'airflow/plugins/**'
 
 jobs:
   access-s3:
