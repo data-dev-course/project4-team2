@@ -3,7 +3,7 @@ from airflow.models import Variable
 
 def upload_to_s3(**kwargs):
     print(kwargs['name'])
-    # s3_conn_id = Variable.get("s3_conn_id")
+
     # s3_hook = S3Hook(aws_conn_id=s3_conn_id)
     # s3_bucket = Variable.get("s3_bucket_name")
     # s3_folder = 'raw_data/youtube/'
