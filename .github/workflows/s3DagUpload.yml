@@ -3,7 +3,7 @@ name: DAGs Upload to S3
 on:
   push:
     branches:
-      - 'jyj_infra'
+      - jyj_feature_youtube
     paths:
       - 'airflow/dags/**'
       - 'airflow/plugins/**'
