@@ -10,7 +10,15 @@ resource "aws_route" "private_nat" {
   count                  = length(var.availability_zones)
   route_table_id         = element(aws_route_table.private.*.id, count.index)
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = element(aws_nat_gateway.nat.*.id, count.index)
+  nat_gateway_id         = aws_nat_gateway.nat_0[0].id
+}
+
+## routes for NAT gateway which will be set in mwaa private subent
+resource "aws_route" "private_nat_mwaa" {
+  count                  = length(var.availability_zones) - 1
+  route_table_id         = element(aws_route_table.private_mwaa.*.id, count.index)
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat_1[0].id
 }
 
 # Peering in public route table
