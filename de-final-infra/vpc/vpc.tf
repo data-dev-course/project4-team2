@@ -21,16 +21,16 @@ resource "aws_internet_gateway" "igw" {
 }
 
 # NAT Gateway 
-resource "aws_nat_gateway" "nat" {
+resource "aws_nat_gateway" "nat_0" {
   # Count means how many you want to create the same resource
   # This will be generated with array format
   # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
   # If you want to create each resource with independent name, then you have to copy the same code and modify some code
-  count = length(var.availability_zones) - 1
+  count = 1
 
   # element is used for select the resource from the array 
   # Usage = element (array, index) => equals array[index]
-  allocation_id = element(aws_eip.nat.*.id, count.index)
+  allocation_id = aws_eip.nat_0[count.index].id
   
   #Subnet Setting
   # nat[0] will be attached to subnet[0]. Same to all index.
@@ -41,16 +41,53 @@ resource "aws_nat_gateway" "nat" {
   }
 
   tags = {
-    Name = "de-3-2-vpc-NAT-GW${count.index}"
+    Name = "de-3-2-vpc-NAT-GW0"
+  }
+
+}
+
+# NAT Gateway 
+resource "aws_nat_gateway" "nat_1" {
+  # Count means how many you want to create the same resource
+  # This will be generated with array format
+  # For example, if the number of availability zone is three, then nat[0], nat[1], nat[2] will be created.
+  # If you want to create each resource with independent name, then you have to copy the same code and modify some code
+  count = 1
+
+  # element is used for select the resource from the array 
+  # Usage = element (array, index) => equals array[index]
+  allocation_id = aws_eip.nat_1[count.index].id
+  
+  #Subnet Setting
+  # nat[0] will be attached to subnet[0]. Same to all index.
+  subnet_id = element(aws_subnet.public.*.id, count.index)
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "de-3-2-vpc-NAT-GW1"
   }
 
 }
 
 # Elastic IP for NAT Gateway 
-resource "aws_eip" "nat" {
+resource "aws_eip" "nat_0" {
   # Count value should be same with that of aws_nat_gateway because all nat will get elastic ip
-  count = length(var.availability_zones)
-  vpc   = true
+  count = 1
+  domain = "vpc"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Elastic IP for NAT Gateway 
+resource "aws_eip" "nat_1" {
+  # Count value should be same with that of aws_nat_gateway because all nat will get elastic ip
+  count = 1
+  domain = "vpc"
 
   lifecycle {
     create_before_destroy = true

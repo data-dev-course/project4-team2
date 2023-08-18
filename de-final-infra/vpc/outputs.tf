@@ -65,6 +65,12 @@ output "db_private_subnets" {
   value = aws_subnet.private_db.*.id
 }
 
+# Private MWAA Subnets
+output "mwaa_private_subnets" {
+  description = "List of mwaa private subnet ID in VPC"
+  value = aws_subnet.private_mwaa.*.id
+}
+
 # Route53
 output "route53_internal_zone_id" {
   description = "Internal Zone ID for VPC"
