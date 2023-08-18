@@ -20,9 +20,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with: 
-        sparse-checkout: set 'airflow/dags' 'airflow/plugins' 
-
+    
     - name: check pwd
       run: pwd
     - name: List S3 Bucket Content
