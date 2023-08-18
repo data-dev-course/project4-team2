@@ -1,13 +1,13 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.models import Variable
 from datetime import datetime, timedelta
-
+import pandas as pd
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-import pandas as pd
-from datetime import datetime, timedelta
-from airflow.models import Variable
+
+
 
 def upload_to_s3(**kwargs):
     print(kwargs['name'])
