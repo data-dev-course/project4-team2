@@ -10,18 +10,14 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 
 def upload_to_s3(data):
-    print("========================")
-    print(data[0])
     src_date = data[0]
     s3_hook = S3Hook()
     s3_bucket = 'de-3-2'
-    s3_folder = 'raw_data/youtube/'
-    # s3_key = f'{s3_folder}/{src_date}/{src_date}.csv'
-    s3_key = f'{s3_folder}/test.txt'
-    
+    s3_folder = 'raw_data/youtube'
+    s3_key = f'{s3_folder}/{src_date}/{src_date}.csv'
     
     s3_hook.load_string(
-        string_data= 'hello',
+        string_data= data[1],
         key=s3_key,
         bucket_name=s3_bucket,
         replace=True
@@ -42,7 +38,7 @@ def youtube_search(publishedAfter,publishedBefore):
         locationRadius='500km',
         type="video",
         part="id,snippet",
-        maxResults=50,
+        maxResults=5, # 50
         regionCode="KR",
         order="viewCount",
         publishedAfter=publishedAfter,
@@ -87,7 +83,7 @@ def get_comments(item):
         part="snippet, replies",
         videoId=video_id,
         textFormat="plainText",
-        maxResults = 100
+        maxResults = 1 # 100
     ).execute()
 
     comments=[]
@@ -128,8 +124,8 @@ def get_data():
         
     df = pd.DataFrame(comments, columns=[['scr_date','video_id','channel_id','video_title','video_published_at','video_link','author','text', 'comment_publishd_at', 'comment_updated_at']])
     scr_date = datetime.now().strftime("%Y-%m-%d")
-    # return {"name": scr_date, "context": df.to_csv(f'{scr_date}_youtube.csv')}
-    return (scr_date, df.to_csv())
+
+    return (scr_date, df.to_csv(index=False))
 
 DAG_ID = 'youtube_data_to_S3'
 
