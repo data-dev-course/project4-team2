@@ -19,6 +19,9 @@ jobs:
         sparse-checkout: |
           'airflow/dags' 
           'airflow/plugins/'
+
+    - name: Debug AWS CLI version
+      run: aws --version
     
     - name: Configure AWS Credentials
       run: aws sts get-caller-identity
