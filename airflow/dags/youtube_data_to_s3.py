@@ -38,7 +38,7 @@ def youtube_search(publishedAfter,publishedBefore):
         locationRadius='500km',
         type="video",
         part="id,snippet",
-        maxResults=5, # 50
+        maxResults=50, # 50
         regionCode="KR",
         order="viewCount",
         publishedAfter=publishedAfter,
@@ -83,7 +83,7 @@ def get_comments(item):
         part="snippet, replies",
         videoId=video_id,
         textFormat="plainText",
-        maxResults = 1 # 100
+        maxResults = 100 # 100
     ).execute()
 
     comments=[]
