@@ -1,10 +1,10 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from airflow.plugins_manager import AirflowPlugin
 import boto3
 from botocore.exceptions import ClientError
 import pandas as pd
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from airflow.models import Variable
 
 
