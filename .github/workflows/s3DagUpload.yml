@@ -24,8 +24,8 @@ jobs:
         sparse-checkout: |
           'airflow/dags' 
           'airflow/plugins/'
-    - name: check ls
-      run: ls -la /home/runner/work/project4-team2/project4-team2/airflow/dags/
+    - name: check pwd
+      run: pwd
  
     - name: List S3 Bucket Content
       run: |
