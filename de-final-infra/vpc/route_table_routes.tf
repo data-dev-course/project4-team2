@@ -5,7 +5,7 @@ resource "aws_route" "public_internet_gateway" {
   gateway_id             = aws_internet_gateway.igw.id
 }
 
-## routes for NAT gateway which will be set in private subent
+# routes for NAT gateway which will be set in private subent
 resource "aws_route" "private_nat" {
   count                  = length(var.availability_zones)
   route_table_id         = element(aws_route_table.private.*.id, count.index)

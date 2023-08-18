@@ -22,8 +22,7 @@ resource "aws_security_group" "rds_postgres" {
     to_port   = 5432
     protocol  = "tcp"
 
-    security_groups = []
-
+    security_groups = [data.terraform_remote_state.vpc.outputs.aws_security_group_default_id]
     description = "Postresql Port from vpc"
   }
 
