@@ -27,14 +27,14 @@ jobs:
       run: |
         aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/dags/ s3://de-3-2/dags/
     
-    - name: Upload requirements.txt to S3
-      run: |
-        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/requirements s3://de-3-2/mwaa_requirements/
+    # - name: Upload requirements.txt to S3
+    #   run: |
+    #     aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/requirements s3://de-3-2/mwaa_requirements/
          
-    - name: Zip the directory and Upload to S3
-      run: |
-        zip -r plugins.zip airflow/plugins/
-        aws s3 cp plugins.zip s3://de-3-2/mwaa_plugins/
+    # - name: Zip the directory and Upload to S3
+    #   run: |
+    #     zip -r plugins.zip airflow/plugins/
+    #     aws s3 cp plugins.zip s3://de-3-2/mwaa_plugins/
 
 
       
