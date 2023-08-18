@@ -12,6 +12,11 @@ jobs:
   access-s3:
     runs-on: ubuntu-latest
 
+    env:
+      AWS_DEFAULT_REGION: ap-northeast-2
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -22,14 +27,11 @@ jobs:
 
     - name: Debug AWS CLI version
       run: aws --version
-
-      env:
-        AWS_DEFAULT_REGION: ap-northeast-2
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         
     - name: Configure AWS Credentials
       run: aws sts get-caller-identity
+
+      
 
     - name: List S3 Bucket Content
       run: |
