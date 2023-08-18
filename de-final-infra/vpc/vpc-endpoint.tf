@@ -68,3 +68,10 @@ resource "aws_vpc_endpoint_subnet_association" "apigateway_endpoint" {
   vpc_endpoint_id = aws_vpc_endpoint.apigateway_endpoint.id
   subnet_id       = element(aws_subnet.private.*.id, count.index)
 }
+
+# Add vpc endpoint to route table of private subnet
+resource "aws_vpc_endpoint_route_table_association" "s3_endpoint_routetable" {
+  count           = length(var.availability_zones)
+  vpc_endpoint_id = aws_vpc_endpoint.s3_endpoint.id
+  route_table_id  = aws_route_table.private[count.index].id
+}

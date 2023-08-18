@@ -12,7 +12,7 @@ module "mwaa" {
   dag_s3_path       = "dags"
 
   ## If uploading requirements.txt or plugins, you can enable these via these options
-  #plugins_s3_path      = "plugins.zip"
+  plugins_s3_path      = "mwaa_plugins/plugins.zip"
   requirements_s3_path = "mwaa_requirements/requirements.txt"
 
   logging_configuration = {
@@ -42,17 +42,17 @@ module "mwaa" {
     }
   }
 
-  airflow_configuration_options = {
-    "core.load_default_connections" = "false"
-    "core.load_examples"            = "false"
-    "webserver.dag_default_view"    = "tree"
-    "webserver.dag_orientation"     = "TB"
-  }
+  # airflow_configuration_options = {
+  #   "core.load_default_connections" = "false"
+  #   "core.load_examples"            = "false"
+  #   "webserver.dag_default_view"    = "tree"
+  #   "webserver.dag_orientation"     = "TB"
+  # }
 
   min_workers        = 1
   max_workers        = 2
   vpc_id             = data.terraform_remote_state.vpc.outputs.vpc_id
-  private_subnet_ids = slice(data.terraform_remote_state.vpc.outputs.private_subnets, 0, 2)
+  private_subnet_ids = data.terraform_remote_state.vpc.outputs.mwaa_private_subnets
 
   webserver_access_mode = "PUBLIC_ONLY"   # Choose the Private network option(PRIVATE_ONLY) if your Apache Airflow UI is only accessed within a corporate network, and you do not require access to public repositories for web server requirements installation
   source_cidr           = ["10.${data.terraform_remote_state.vpc.outputs.cidr_numeral}.0.0/16"] # Add your IP address to access Airflow UI
