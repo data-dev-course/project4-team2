@@ -19,6 +19,9 @@ jobs:
         sparse-checkout: |
           'airflow/dags' 
           'airflow/plugins/'
+    
+    - name: Configure AWS Credentials
+      run: aws sts get-caller-identity
 
     - name: List S3 Bucket Content
       run: |
