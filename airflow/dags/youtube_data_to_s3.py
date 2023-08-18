@@ -17,7 +17,7 @@ def upload_to_s3(**kwargs):
     s3_hook = S3Hook()
     s3_bucket = 'de-3-2'
     s3_folder = 'raw_data/youtube/'
-    s3_key = f'{s3_folder}/{src_date/src_date.csv}'
+    s3_key = f'{s3_folder}/{src_date}/{src_date}.csv'
     
     s3_hook.load_string(
         string_data= kwargs['context'],
