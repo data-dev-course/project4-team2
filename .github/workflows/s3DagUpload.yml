@@ -21,7 +21,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
       with: 
-        sparse-checkout: 'airflow/dags' 
+        sparse-checkout: set 'airflow/dags' 'airflow/plugins' 
 
     - name: check pwd
       run: pwd
