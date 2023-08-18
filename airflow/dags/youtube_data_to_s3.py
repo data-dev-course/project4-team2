@@ -5,25 +5,26 @@ from datetime import datetime, timedelta
 import pandas as pd
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 
 
 def upload_to_s3(**kwargs):
     print(kwargs['name'])
-    print(kwargs['name'])
-    # s3_hook = S3Hook(aws_conn_id=s3_conn_id)
-    # s3_bucket = Variable.get("s3_bucket_name")
-    # s3_folder = 'raw_data/youtube/'
-    # s3_key = f'{s3_folder}/{dataframe[0]/dataframe[0].csv}'
+    print(kwargs['context'])
+    src_date = kwargs['name']
+
+    s3_hook = S3Hook()
+    s3_bucket = 'de-3-2'
+    s3_folder = 'raw_data/youtube/'
+    s3_key = f'{s3_folder}/{src_date/src_date.csv}'
     
-    
-    # s3_hook.load_string(
-    #     string_data=dataframe,
-    #     key=s3_key,
-    #     bucket_name=s3_bucket,
-    #     replace=True
-    # )
+    s3_hook.load_string(
+        string_data= kwargs['context'],
+        key=s3_key,
+        bucket_name=s3_bucket,
+        replace=True
+    )
 
 api_service_name = "youtube"
 api_version = "v3"
