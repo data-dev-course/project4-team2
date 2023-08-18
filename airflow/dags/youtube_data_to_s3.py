@@ -2,8 +2,8 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 
-# from googleapiclient.discovery import build
-# from googleapiclient.errors import HttpError
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 import pandas as pd
 from datetime import datetime, timedelta
