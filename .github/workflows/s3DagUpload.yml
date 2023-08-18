@@ -24,15 +24,9 @@ jobs:
         sparse-checkout: |
           'airflow/dags' 
           'airflow/plugins/'
-
-    - name: Debug AWS CLI version
-      run: aws --version
-        
-    - name: Configure AWS Credentials
-      run: aws sts get-caller-identity
-
-      
-
+    - name: check ls
+      run: ls -la /home/runner/work/project4-team2/project4-team2/airflow/dags/
+ 
     - name: List S3 Bucket Content
       run: |
         aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/dags/ s3://de-3-2/dags/ --debug
