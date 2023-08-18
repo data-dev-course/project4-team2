@@ -7,6 +7,7 @@ on:
     paths:
       - 'airflow/dags/**'
       - 'airflow/plugins/**'
+      - 'airflow/requirements/**'
 
 jobs:
   access-s3:
@@ -21,12 +22,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: check pwd
-      run: pwd
+ 
     - name: List S3 Bucket Content
       run: |
         aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/dags/ s3://de-3-2/dags/
     
+    - name: Upload requirements.txt to S3
+      run: |
+        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/requirements s3://de-3-2/mwaa_requirements/
+         
     - name: Zip the directory and Upload to S3
       run: |
         zip -r plugins.zip airflow/plugins/
