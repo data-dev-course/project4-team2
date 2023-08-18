@@ -10,8 +10,9 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 
 def upload_to_s3(data):
+    print("========================")
     print(data[0])
-    print(data[1])
+    print(data[1].head(2))
     src_date = data[0]
     s3_hook = S3Hook()
     s3_bucket = 'de-3-2'
