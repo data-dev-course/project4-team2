@@ -17,12 +17,13 @@
 - 가용영역 :"a", "c", "d"
 - subnets
   - private subnets: 8
-    - 3개는 private은 redshift, 3개는 rds instance (db), 2개는 mwaa 할당
-    - 일반 private subnets들에 서비스별로 nat gateway 할당. (db는 없음)
+    - 3개는 private은 redshift, 3개는 rds instance (db), 2개는 mwaa, 2개는 ecs+fargate 할당
+    - 기존에 3개의 private을 묶던 nat gateway 에 ecs subnets 추가 (redshift를 외부연결로 쓰지 않을 확률이 높아서)
+    - mwaa subnet에 nat gateway 할당되에 있음.
     - 2개 rds instance는 subnet 그룹으로 묶여있음.
   - public subnets: 3
     - 인터넷 게이트웨이 할당됨.
-- s3, api gateway 엔드포인트 생성됨
+- s3 (3 privates), api gateway 엔드포인트 생성됨 - (현재 엔드포인트 생성 오류)
 
 ### Jenkins
 이 폴더는 jenkins 구성 실패로 사용되지 않음.
@@ -36,3 +37,4 @@ Postgres15 db instance로 구성되는 rds cluster.
 
 - 가용영역 3곳의 db-private-subnet에서 작동, 메인 가용영역 ap-northeast-2d로 확인됨.
 - 32GiB 할당
+

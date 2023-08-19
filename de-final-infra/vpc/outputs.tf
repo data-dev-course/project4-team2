@@ -71,6 +71,13 @@ output "mwaa_private_subnets" {
   value = aws_subnet.private_mwaa.*.id
 }
 
+# Private ECS Subnets
+output "ecs_private_subnets" {
+  description = "List of ecs private subnet ID in VPC"
+  value = aws_subnet.private_ecs.*.id
+}
+
+
 # Route53
 output "route53_internal_zone_id" {
   description = "Internal Zone ID for VPC"

@@ -46,7 +46,6 @@ resource "aws_nat_gateway" "nat_0" {
 
 }
 
-# NAT Gateway 
 resource "aws_nat_gateway" "nat_1" {
   # Count means how many you want to create the same resource
   # This will be generated with array format
@@ -69,8 +68,8 @@ resource "aws_nat_gateway" "nat_1" {
   tags = {
     Name = "de-3-2-vpc-NAT-GW1"
   }
-
 }
+
 
 # Elastic IP for NAT Gateway 
 resource "aws_eip" "nat_0" {
@@ -83,7 +82,6 @@ resource "aws_eip" "nat_0" {
   }
 }
 
-# Elastic IP for NAT Gateway 
 resource "aws_eip" "nat_1" {
   # Count value should be same with that of aws_nat_gateway because all nat will get elastic ip
   count = 1
@@ -220,4 +218,34 @@ resource "aws_route_table_association" "private_mwaa" {
   count          = length(var.availability_zones)-1
   subnet_id      = element(aws_subnet.private_mwaa.*.id, count.index)
   route_table_id = element(aws_route_table.private_mwaa.*.id, count.index)
+}
+
+# ECS & FARGATE Private Subnet
+resource "aws_subnet" "private_ecs" {
+  count  = length(var.availability_zones)-1
+  vpc_id = aws_vpc.main.id
+
+  cidr_block        = "10.${var.cidr_numeral}.${var.cidr_numeral_private_ecs[count.index]}.0/20"
+  availability_zone = element(var.availability_zones, count.index+1)
+  tags = {
+    Name = "de-3-2-vpc-ecs-private-${count.index}"
+    immutable_metadata = "{ \"purpose\": \"internal_${var.vpc_name}\", \"target\": null }"
+    Network = "Private"
+  }
+}
+
+# Route Table for ECS
+resource "aws_route_table" "private_ecs" {
+  vpc_id = aws_vpc.main.id
+  count  = length(var.availability_zones)-1
+  tags = {
+    Name = "de-3-2-vpc-rt-private-ecs-${count.index}"
+    Network = "Private"
+  }
+}
+
+resource "aws_route_table_association" "private_ecs" {
+  count          = length(var.availability_zones)-1
+  subnet_id      = element(aws_subnet.private_ecs.*.id, count.index)
+  route_table_id = element(aws_route_table.private_ecs.*.id, count.index)
 }
