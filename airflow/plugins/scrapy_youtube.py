@@ -14,17 +14,20 @@ DEVELOPER_KEY = Variable.get("youtube_api_key")
 
 def youtube_search(publishedAfter,publishedBefore):
     youtube = build(api_service_name, api_version, developerKey = DEVELOPER_KEY)
+    latitude_seoul = 37.56667
+    longtitude_seoul = 126.97806
 
     search_response = youtube.search().list(
-        videoCategoryId="10",
-        topicId="/m/04rlf",
-        location="37.56667, 126.97806", # 서울의 위도와 경도 
+        videoCategoryId="25",
+        topicId="/m/098wr", # 지정된 주제와 관련된 리소스만 포함
+        location=f"{latitude_seoul}, {longtitude_seoul}", 
         locationRadius='500km',
         type="video",
         part="id,snippet",
         maxResults=50,
-        regionCode="KR",
-        order="viewCount",
+        regionCode="KR", # 지정된 국가에서 볼 수 있는 동영상의 검색결과 반환
+        relevanceLanguage='ko',# 지정된 언어와 가장 관련성이 높은 검색 결과 반환
+        order="viewCount", #  조회수가 높은 순으로 정렬
         publishedAfter=publishedAfter,
         publishedBefore=publishedBefore
     ).execute()
@@ -73,39 +76,38 @@ def get_comments(item):
     comments=[]
 
     for item1 in results["items"]:
+        comment_id = item1["id"]
         comment = item1["snippet"]["topLevelComment"]
         author = comment["snippet"]["authorDisplayName"]
         text = comment["snippet"]["textDisplay"]
         comment_publishd_at = comment["snippet"]["publishedAt"]
         comment_updated_at = comment["snippet"]["updatedAt"]
         scr_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        comments.append([scr_date, video_id, channel_id, video_title, video_published_at, video_link, author, text, comment_publishd_at, comment_updated_at])
+        comments.append([scr_date, video_id, channel_id, video_title, video_published_at, video_link, comment_id, author, text, comment_publishd_at, comment_updated_at])
 
     return comments
 
 
-# rfc3339 형식으로 변환하는 함수
+# UTC시간대 날짜를 rfc3339 (iso 8601) 형식으로 변환하는 함수
 def convert(date):
-    return date.strftime('%Y-%m-%dT%H:%M:%SZ')
+    return date.isoformat(timespec='seconds')+'Z'
 
 
 def get_data():
     comments = []
-    start_date = datetime(2023, 8, 1)
-    end_date = datetime(2023, 8, 7)
+    start_date = datetime.utcnow().replace(hour=0, minute=0, second=0) - timedelta(weeks=10) 
+    end_date = start_date + timedelta(weeks=1)  
 
-    while start_date < end_date:
-        print(start_date,start_date+timedelta(days=1))
+
+    for item in youtube_search(convert(start_date),convert(end_date)):
         try:
-            for item in youtube_search(convert(start_date),convert(start_date+timedelta(days=1))):
-                try:
-                    comments.extend(get_comments(item))
-                except HttpError as e:
-                    print(f"An HTTP error{e.resp.status} occurred:\n{e.content}")
-        except Exception as e:
-            print(f"An error occurred outside the loop: {e}")
-        start_date += timedelta(days=1)
+            comments.extend(get_comments(item))
+        except HttpError as e:
+            print(f"An HTTP error{e.resp.status} occurred:\n{e.content}")
+    
         
-    df = pd.DataFrame(comments, columns=[['scr_date','video_id','channel_id','video_title','video_published_at','video_link','author','text', 'comment_publishd_at', 'comment_updated_at']])
+    df = pd.DataFrame(comments, columns=[['scr_date','video_id','channel_id','video_title','video_published_at','video_link','comment_id','author','text', 'comment_publishd_at', 'comment_updated_at']])
+    df['tag'] = 'youtube'
     scr_date = datetime.now().strftime("%Y-%m-%d")
-    return {"name": scr_date, "context": df.to_csv(f'{scr_date}_youtube.csv')}
+
+    return (scr_date, df.to_csv(index=False))
