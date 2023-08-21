@@ -28,7 +28,7 @@ with DAG(
             video_id VARCHAR(128),
             channel_id VARCHAR(128),
             title VARCHAR(1028),
-            category VARCHAR(10),
+            category VARCHAR(50),
             video_published_at TIMESTAMP,
             video_link TEXT,
             comment_id VARCHAR(128),
