@@ -80,8 +80,9 @@ check_redshift_news_comment_table = RedshiftSQLOperator(
         comment VARCHAR(65535),
         title_link VARCHAR(1024),
         created_news_date TIMESTAMP,
-        scr_date TIMESTAMP,
-        category VARCHAR(128)
+        category VARCHAR(128),
+        scr_date TIMESTAMP
+        
     );
     ''',
     postgres_conn_id='redshift_dev_db',  # Make sure to set up the Redshift connection in Airflow
