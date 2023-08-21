@@ -123,7 +123,7 @@ def extract_comments(urls):
     for url, error in failed_urls:
         print(f"URL: {url}, Error: {error}")
 
-    columns = ["author", "comment_date", "comment", "title_link", "created_news_date"]
+    columns = ["author", "comment_date", "comment", "title_link", "created_news_date", "category"]
     df_results = pd.DataFrame(columns=columns)
     for result in results:
         df_temp = pd.DataFrame(result, columns=columns)
