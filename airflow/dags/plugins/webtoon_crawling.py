@@ -123,7 +123,7 @@ def load_to_s3(data, dir, aws_conn_id='conn_aws_de_3_2'):
     
 
 def extract_and_load_s3(**kwargs):
-    global AWS_DEFAULT_REGION, BUCKET, URL 
+    global AWS_DEFAULT_REGION, BUCKET 
 
     # Airflow에서 전달된 파라미터를 추출
     AWS_DEFAULT_REGION = kwargs.get('params', {}).get('AWS_DEFAULT_REGION')
