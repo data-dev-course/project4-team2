@@ -20,7 +20,6 @@ extract_and_load_s3 = PythonOperator(
     task_id="extract_and_load_s3",
     python_callable=webtoon_crawling.extract_and_load_s3,
     params={
-        "url": Variable.get("WEBTOON_BASE_URL"),
         "BUCKET": Variable.get("S3-BUCKET"),
         "AWS_DEFAULT_REGION": Variable.get("AWS_DEFAULT_REGION"),
     },
