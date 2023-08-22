@@ -49,6 +49,13 @@ variable "cidr_numeral_private_db" {
   }
 }
 
+variable "cidr_numeral_private_ecs" {
+  default = {
+    "0" = "208"
+    "1" = "224"
+  }
+}
+
 variable "billing_tag" {
   description = "The AWS tag used to track AWS charges."
 }

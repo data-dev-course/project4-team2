@@ -21,6 +21,14 @@ resource "aws_route" "private_nat_mwaa" {
   nat_gateway_id         = aws_nat_gateway.nat_1[0].id
 }
 
+## routes for NAT gateway associate with ECS FARGATE Private Subnets
+resource "aws_route" "private_nat_ecs" {
+  count                  = length(var.availability_zones) - 1
+  route_table_id         = element(aws_route_table.private_ecs.*.id, count.index)
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat_0[0].id
+}
+
 # Peering in public route table
 # resource "aws_route" "public_peering" {
 #   route_table_id            = aws_route_table.public.id
