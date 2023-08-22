@@ -62,7 +62,7 @@ check_redshift_news_comment_table = RedshiftSQLOperator(
         author VARCHAR(512),
         comment_date TIMESTAMP,
         comment VARCHAR(65535),
-        title_link VARCHAR(1024),
+        comment_link VARCHAR(1024),
         created_news_date TIMESTAMP,
         category VARCHAR(128),
         scr_date TIMESTAMP

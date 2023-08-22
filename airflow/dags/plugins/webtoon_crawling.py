@@ -228,10 +228,10 @@ def extract_and_load_s3(**kwargs):
     webtoon_comment = extract_webtoon_comment(webtoon_contents)
     print(webtoon_comment)
     print(f'len of news_title : {len(webtoon_title)},  news_comment : {len(webtoon_comment)}')
-    news_title_path = load_to_s3(webtoon_contents, 'webtoon_contents')
-    news_comment_path = load_to_s3(webtoon_comment, 'webtoon_comment')
+    webtoon_content_path = load_to_s3(webtoon_contents, 'webtoon_contents')
+    webtoon_comment_path = load_to_s3(webtoon_comment, 'webtoon_comment')
     
     # XCom에 값을 저장
     ti = kwargs['ti']  # TaskInstance 객체 가져오기
-    ti.xcom_push(key='news_title_path', value=news_title_path)
-    ti.xcom_push(key='news_comment_path', value=news_comment_path)
+    ti.xcom_push(key='webtoon_content_path', value=webtoon_content_path)
+    ti.xcom_push(key='webtoon_comment_path', value=webtoon_comment_path)
