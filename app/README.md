@@ -7,8 +7,9 @@
 - execute entrypoint.py file ; `python entrypoint.py` 
 - go to http://0.0.0.0:8000/docs
 
-### to build (docker image)
-- run `docker-compose up`
+### to build and run (docker image)
+- for just image build, run `docker-compose build`
+- for running container, run `docker-compose up`
 - go to http://0.0.0.0:8081/docs to see the Swagger API docs
 
 ## Frontend
