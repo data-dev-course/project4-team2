@@ -1,18 +1,18 @@
-# Use Python 3.11 as a parent image
+# Use Python 3.11 slim image as the base image
 FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Set the working directory
+WORKDIR /services/backend
 
-WORKDIR /app/services/backend/
+# Copy local files to the container
+COPY . .
 
-# Install Python dependencies
-COPY requirements.txt requirements.txt
-RUN pip3 install --upgrade pip3 \
-    && pip3 install -r requirements.txt
+# Install pipenv
+RUN pip install --upgrade pip && \
+    pip install pipenv
 
-COPY /src /src
+# Install dependencies from Pipfile
+RUN pipenv install --deploy --system
 
 # Specify the command to run on container start
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["python3.11", "entrypoint.py"]
