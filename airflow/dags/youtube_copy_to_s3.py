@@ -13,7 +13,7 @@ default_args = {
 with DAG(
     dag_id=DAG_ID,
     default_args=default_args,
-    start_date=datetime(2022, 8, 1),
+    start_date=datetime(2022, 8, 17),
     catchup=False,
     schedule_interval="@daily",
 ) as dag:
@@ -21,6 +21,7 @@ with DAG(
     get_youtube_data_task = PythonOperator(
         task_id = 'get_youtube_data',
         python_callable=youtube_api.get_data
+
     )
     
     upload_to_s3_task = PythonOperator(
