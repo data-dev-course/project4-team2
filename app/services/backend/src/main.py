@@ -3,7 +3,6 @@ import logging.config
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
-
 load_dotenv()
 
 logger = logging.getLogger("Grammar Error Insight Backend")
