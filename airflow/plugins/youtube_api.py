@@ -4,7 +4,7 @@ from googleapiclient.errors import HttpError
 import pandas as pd
 from datetime import datetime, timedelta
 from airflow.models import Variable
-
+from airflow.operators.python import get_current_context
 
 
 api_service_name = "youtube"
@@ -93,14 +93,18 @@ def get_comments(category_id,item):
 
 # rfc3339 형식으로 변환하는 함수
 def convert(date):
-    return date.isoformat(timespec='seconds')+'Z'
+    # return date.isoformat(timespec='seconds')+'Z'
+    return date.strftime('%Y-%m-%dT%H:%M:%SZ')
 
 
 def get_data():
     comments = []
-    start_date = datetime.utcnow().replace(hour=0, minute=0, second=0) - timedelta(weeks=12) 
-    end_date = start_date + timedelta(days=1)  
-
+    # start_date = datetime.utcnow().replace(hour=0, minute=0, second=0) - timedelta(weeks=12) 
+    # end_date = start_date + timedelta(days=1)  
+    context = get_current_context()
+    start_date = context['execution_date'] - timedelta(weeks=12) 
+    end_date = start_date + timedelta(days=1)
+    
     for category_id in category_list:
         for item in youtube_search(category_id, convert(start_date),convert(end_date)):
             try:
@@ -112,6 +116,6 @@ def get_data():
     df = pd.DataFrame(comments, columns=[['scr_date','video_id','channel_id','video_title','category','video_published_at','video_link','comment_id','author','text', 'comment_publishd_at', 'comment_updated_at']])
     df['tag'] = 'youtube'
     print("===댓글 개수:", len(df))
+    
     scr_date = datetime.now().strftime("%Y-%m-%d")
-
     return (scr_date, df.to_csv(index=False))
