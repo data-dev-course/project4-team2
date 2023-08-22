@@ -1,0 +1,42 @@
+name: Docker Image build and Push to ECR
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'main'
+    paths:
+      - 'app/services/backend/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        sparse-checkout: 'app'
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2 # More information on this action can be found below in the 'AWS Credentials' section
+      with:
+        aws-region: ap-northeast-2
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+      with:
+        mask-password: 'true'
+
+    - name: Build, tag, and push docker image to Amazon ECR
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPOSITORY: de-3-2/backend
+        IMAGE_TAG: 'latest'
+      run: |
+        cd app
+        docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./services/backend
+        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+    

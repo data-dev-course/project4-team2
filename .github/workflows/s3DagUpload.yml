@@ -1,40 +1,62 @@
 name: DAGs Upload to S3
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
-      - jyj_feature_youtube
+      - 'main'
     paths:
-      - 'airflow/dags/**'
-      - 'airflow/plugins/**'
-      - 'airflow/requirements/**'
+      - 'airflow/**'
 
 jobs:
-  access-s3:
+  copy-dags:
     runs-on: ubuntu-latest
-
-    env:
-      AWS_DEFAULT_REGION: ap-northeast-2
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-    
- 
-    - name: List S3 Bucket Content
+      with: 
+        sparse-checkout: 'airflow'
+
+    - name: Copy Repo Contents to S3 folder
       run: |
         aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/dags/ s3://de-3-2/dags/
-    
-    # - name: Upload requirements.txt to S3
-    #   run: |
-    #     aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/requirements s3://de-3-2/mwaa_requirements/
-         
-    # - name: Zip the directory and Upload to S3
-    #   run: |
-    #     zip -r plugins.zip airflow/plugins/
-    #     aws s3 cp plugins.zip s3://de-3-2/mwaa_plugins/
+      env:
+        AWS_DEFAULT_REGION: ap-northeast-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+  copy-requirements:
+    runs-on: ubuntu-latest
 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with: 
+        sparse-checkout: 'airflow'
 
-      
+    - name: Copy Repo Contents to S3 folder
+      run: |
+        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/requirements/ s3://de-3-2/mwaa_requirements/
+      env:
+        AWS_DEFAULT_REGION: ap-northeast-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
+  copy-plugins:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with: 
+        sparse-checkout: 'airflow'
+
+    - name: Copy Repo Contents to S3 folder
+      run: |
+        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/plugins/ s3://de-3-2/mwaa_plugins/
+      env:
+        AWS_DEFAULT_REGION: ap-northeast-2
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

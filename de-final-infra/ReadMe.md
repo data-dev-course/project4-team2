@@ -14,16 +14,27 @@
 - 각 폴더에는 terraform.tfvars가 존재 -> 보안상의 이유로 gitignore 처리
 ### VPC
 
-- 가용영역 :"a", "c"
+- 가용영역 :"a", "c", "d"
 - subnets
-  - private subnets: 4
-    - 2개는 일반 private, 2개는 rds instance 용
-    - 일반 private subnets들에 nat gateway 각각 할당되어 있음.
+  - private subnets: 8
+    - 3개는 private은 redshift, 3개는 rds instance (db), 2개는 mwaa, 2개는 ecs+fargate 할당
+    - 기존에 3개의 private을 묶던 nat gateway 에 ecs subnets 추가 (redshift를 외부연결로 쓰지 않을 확률이 높아서)
+    - mwaa subnet에 nat gateway 할당되에 있음.
     - 2개 rds instance는 subnet 그룹으로 묶여있음.
-  - public subnets: 2
+  - public subnets: 3
     - 인터넷 게이트웨이 할당됨.
-- s3, api gateway 엔드포인트 생성됨
+- s3 (3 privates), api gateway 엔드포인트 생성됨 - (현재 엔드포인트 생성 오류)
 
 ### Jenkins
 이 폴더는 jenkins 구성 실패로 사용되지 않음.
 ec2 인스턴스 구성 예시로 남겨둠.
+
+### RDS
+Postgres15 db instance로 구성되는 rds cluster.
+1. '/databases'에서 init, plan, apply 진행 (route53 comment 처리)
+2. '/databases/rds'에서 init, plan, apply 진행
+3. 다시 '/databases'에서 route53 코멘트 처리 풀고, endpoint에 instance endpoint 입력 후 실행
+
+- 가용영역 3곳의 db-private-subnet에서 작동, 메인 가용영역 ap-northeast-2d로 확인됨.
+- 32GiB 할당
+
