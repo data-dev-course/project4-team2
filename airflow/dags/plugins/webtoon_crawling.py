@@ -101,7 +101,8 @@ def extract_content(webtoon_title):
         df_temp = pd.DataFrame(result, columns=columns)
         df_results = pd.concat([df_results, df_temp], ignore_index=True)
     
-    
+    df_results['content_date'] = pd.to_datetime(df_results['content_date'])
+
     
     df_results['scr_date'] = pd.to_datetime(SCRIPY_START_TIME, format='%Y-%m-%d_%H')
     grouped = df_results.groupby(['title', 'content_name', 'content_link', 'content_date', 'scr_date']).agg({'webtoon_categories': lambda x: ','.join(list(x))}).reset_index()
