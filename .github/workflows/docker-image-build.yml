@@ -2,7 +2,12 @@ name: Docker Image build and Push to ECR
 
 on:
   pull_request:
-    branches: [ "main" ]
+    types:
+      - closed
+    branches:
+      - 'main'
+    paths:
+      - 'app/services/backend/**'
 
 jobs:
   build-and-push:

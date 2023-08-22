@@ -15,8 +15,8 @@ logger.info("START Application")
 # Tags for representative endpoints
 tags = [
     {
-        "name": "user",
-        "description": "sample CRUD user",
+        "name": "app",
+        "description": "sample CRUD",
     }
 ]
 
