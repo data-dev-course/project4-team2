@@ -1,3 +1,11 @@
+## Contents
+## - VPC
+## - Internet Gateway
+## - Nat Gateway
+## - Elastic IP
+## - Public Subnets & Routing Tables
+## - Private Subnets & Routing Tables (private;redshift, db, mwaa, ecs)
+
 # VPC
 # Whole network cidr will be 10.0.0.0/8 
 # A VPC cidr will use the B class with 10.xxx.0.0/16
