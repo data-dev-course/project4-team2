@@ -1,10 +1,9 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-from airflow.operators.python import get_current_context
 from airflow.models import Variable
 def upload_to_s3(data):
     scr_date = data[0]
     s3_hook = S3Hook()
-    s3_bucket = Variable('S3-BUCKET')
+    s3_bucket = Variable.get('S3-BUCKET')
     s3_folder = 'raw_data/youtube'
     s3_key = f"{s3_folder}/{scr_date}/{scr_date}.csv"
     
