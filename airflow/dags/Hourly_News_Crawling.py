@@ -1,25 +1,9 @@
-import io
-import os
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor
-import json
-import logging
-
-import numpy as np
-import pandas as pd
-import requests
-from bs4 import BeautifulSoup
-
-
-
 from airflow import DAG
-from airflow.exceptions import AirflowException
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator as RedshiftSQLOperator
 from airflow.models import Variable
-
-
 from plugins import news_crawling
 
 DAG_ID = "Hourly_News_Crawling"
