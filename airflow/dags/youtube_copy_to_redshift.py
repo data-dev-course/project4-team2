@@ -11,7 +11,7 @@ default_args = {
 with DAG(
     dag_id="youtube_copy_to_redshift",
     default_args = default_args ,
-    start_date=datetime(2022, 8, 1),
+    start_date=datetime(2022, 8, 17),
     catchup=False,
     schedule_interval="10 0 * * *"
 )as dag:
@@ -28,7 +28,7 @@ with DAG(
             video_id VARCHAR(128),
             channel_id VARCHAR(128),
             title VARCHAR(1028),
-            category VARCHAR(50),
+            category VARCHAR(128),
             video_published_at TIMESTAMP,
             video_link TEXT,
             comment_id VARCHAR(128),
