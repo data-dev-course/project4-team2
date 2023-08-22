@@ -41,7 +41,12 @@ check_redshift_webtoon_title_table = RedshiftSQLOperator(
     task_id='check_redshift_webtoon_title_table',
     sql='''
     CREATE TABLE IF NOT EXISTS raw_data.tb_webtoon_title (
-
+    title VARCHAR(512),
+    content_name VARCHAR(512),
+    conetne_link VARCHAR(512),
+    content_date TIMESTAMP,
+    scr_date TIMESTAMP,
+    webtoon_categories, VARCHAR(1024)
     );
     ''',
     postgres_conn_id='redshift_dev_db',  # Make sure to set up the Redshift connection in Airflow
@@ -52,7 +57,13 @@ check_redshift_webtoon_comment_table = RedshiftSQLOperator(
     task_id='check_redshift_webtoon_comment_table',
     sql='''
     CREATE TABLE IF NOT EXISTS raw_data.tb_webtoon_comment (
-
+        title VARCHAR(512),
+        content_name VARCHAR(512),
+        nickname VARCHAR(512),
+        id VARCHAR(512),
+        comment_date TIMESTAMP,
+        comment VARCHAR(65535),
+        scr_date TIMESTAMP
     );
     ''',
     postgres_conn_id='redshift_dev_db',  # Make sure to set up the Redshift connection in Airflow

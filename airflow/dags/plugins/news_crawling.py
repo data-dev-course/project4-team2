@@ -123,7 +123,7 @@ def extract_comments(urls):
     for url, error in failed_urls:
         print(f"URL: {url}, Error: {error}")
 
-    columns = ["author", "comment_date", "comment", "title_link", "created_news_date", "category"]
+    columns = ["author", "comment_date", "comment", "comment_link", "created_news_date", "category"]
     df_results = pd.DataFrame(columns=columns)
     for result in results:
         df_temp = pd.DataFrame(result, columns=columns)
@@ -140,7 +140,7 @@ def extract_comments(urls):
     
     df_results['created_news_date'] = pd.to_datetime(df_results['created_news_date'])
 
-    df_results['comment_date'] = pd.to_datetime(df_results['comment_date'], errors='coerce')
+    df_results['comment_date'] = pd.to_datetime(df_results['comment_date'], format='%Y-%m-%dT%H:%M:%S%z', errors='coerce')
     df_results['scr_date'] = pd.to_datetime(SCRIPY_START_TIME, format='%Y-%m-%d_%H')
     
     return df_results
