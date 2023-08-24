@@ -43,20 +43,3 @@ jobs:
         AWS_DEFAULT_REGION: ap-northeast-2
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  
-  copy-plugins:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with: 
-        sparse-checkout: 'airflow'
-
-    - name: Copy Repo Contents to S3 folder
-      run: |
-        aws s3 sync /home/runner/work/project4-team2/project4-team2/airflow/plugins/ s3://de-3-2/mwaa_plugins/
-      env:
-        AWS_DEFAULT_REGION: ap-northeast-2
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
