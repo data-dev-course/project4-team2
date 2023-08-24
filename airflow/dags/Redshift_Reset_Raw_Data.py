@@ -33,4 +33,25 @@ init_redshift_news_comment_table = RedshiftSQLOperator(
     dag=dag,
 )
 
+init_redshift_webtoon_title_table = RedshiftSQLOperator(
+    task_id='init_redshift_webtoon_title_table',
+    sql='''
+    DROP TABLE IF EXISTS raw_data.tb_webtoon_title;
+    ''',
+    postgres_conn_id='redshift_dev_db',
+    dag=dag,
+)
+
+init_redshift_webtoon_comment_table = RedshiftSQLOperator(
+    task_id='init_redshift_webtoon_comment_table',
+    sql='''
+    DROP TABLE IF EXISTS raw_data.tb_webtoon_comment;
+    ''',
+    postgres_conn_id='redshift_dev_db',
+    dag=dag,
+)
+
+
 init_redshift_news_title_table >> init_redshift_news_comment_table
+
+init_redshift_webtoon_title_table >> init_redshift_webtoon_comment_table

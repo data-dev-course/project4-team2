@@ -123,8 +123,9 @@ def extract_comments(urls):
     for url, error in failed_urls:
         print(f"URL: {url}, Error: {error}")
 
-    columns = ["author", "comment_date", "comment", "title_link", "created_news_date", "category"]
+    columns = ["author", "comment_date", "comment", "comment_link", "created_news_date", "category"]
     df_results = pd.DataFrame(columns=columns)
+    print(df_results.head())
     for result in results:
         df_temp = pd.DataFrame(result, columns=columns)
         df_results = pd.concat([df_results, df_temp], ignore_index=True)
@@ -140,9 +141,18 @@ def extract_comments(urls):
     
     df_results['created_news_date'] = pd.to_datetime(df_results['created_news_date'])
 
-    df_results['comment_date'] = pd.to_datetime(df_results['comment_date'], errors='coerce')
-    df_results['scr_date'] = pd.to_datetime(SCRIPY_START_TIME, format='%Y-%m-%d_%H')
+    # datetime 형식 변환
+    def convert_to_datetime(date_str):
+        try:
+            return pd.to_datetime(date_str, format='%Y.%m.%d. %H:%M:%S')
+        except:
+            return pd.to_datetime(date_str, format='%Y.%m.%d. %H:%M')
+
+    df_results['comment_date'] = df_results['comment_date'].apply(convert_to_datetime)    
     
+    df_results['scr_date'] = pd.to_datetime(SCRIPY_START_TIME, format='%Y-%m-%d_%H')
+    print(df_results.info())
+    print(df_results.head())
     return df_results
 
 
