@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "repo" {
-  name = "de-3-2/service_backend"
+  name = "de-3-2/backend"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
