@@ -3,40 +3,105 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  font-family: 'Modak', cursive;
+  font-size: 2em;
+  padding: 0 0.2em;
+  color: #446DFF;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.grammar-style {
+  color: #000;
+  padding: 0.2em 0.01em;
+  text-align: center;
+  font-size: 1.5em;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(1,1,1,0);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.error-btn {
+  border-bottom: 2px solid #d7260d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.spacing-btn {
+  border-bottom: 2px solid #ffcc00;
 }
 
-.card {
-  padding: 2em;
+.error-btn:hover, .error-btn:active {
+  background-color: #ffe9e9;
 }
 
-.read-the-docs {
-  color: #888;
+.spacing-btn:hover, .spacing-btn:active {
+  background-color: #fff7e4;
+}
+
+.correct-btn {
+  background-color: transparent;
+  color: #446DFF;
+  border-bottom: 2px solid rgba(1,1,1,0);
+}
+
+.burger_menu_wrap {
+  right: 0%;
+  top: 0;
+  position: absolute;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+}
+
+.ham_menu {
+  z-index: 16;
+  display: block;
+  position:absolute;
+  right: 0%;
+  top: 50%;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  text-decoration: none;
+}
+.ham_menu span {
+  display: block;
+  position:absolute;
+  top: 50%;
+  width: 100%;
+  height: 2px;
+  border-radius: 100px;
+  background: #446DFF;
+  color: transparent;
+  transform: translate(0, -50%);
+  transition: all 0.5s;
+}
+.ham_menu span:before, .ham_menu span:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 100px;
+  background: #446DFF;
+  transition: all 0.5s;
+}
+.ham_menu span:before {top: -8px;}
+.ham_menu span:after {top: 8px;}
+.ham_menu.ham_expand span {background: transparent;}
+.ham_menu.ham_expand span:before {
+  background: #FFCC00; top: 0px; transform: rotate(45deg);
+}
+.ham_menu.ham_expand span:after {
+  background: #FFCC00; top: 0px; transform: rotate(-45deg);
+}
+
+.burger-check {
+  display: none;
 }
