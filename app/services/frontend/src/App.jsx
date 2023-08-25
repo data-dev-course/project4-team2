@@ -4,24 +4,28 @@ import './App.css'
 
 export function HambergerMenu() {
   const [hamClass, setHamClass] = useState("ham_menu");
-  const handleSidebarClose = () => {
-      setHamClass("ham_menu");
-      const checkbox = document.getElementById("burger-check");
-      checkbox.checked = false;
+  const [menuClass, setMenuClass] = useState("collapsible hidden");
+  const handleDropdown = () => {
+    setHamClass("ham_menu");
+    setMenuClass("collapsible hidden");
+    const checkbox = document.getElementById("burger-check");
+    checkbox.checked = false;
   }
   return (
+    <div>
       <div className="burger_menu_wrap">
           <input className="burger-check" type="checkbox" id="burger-check" />
           <label href="#" className={hamClass} htmlFor="burger-check"
           onClick={()=>{
-              if (hamClass === "ham_menu") {setHamClass(`${hamClass} ham_expand`)}
-              else {setHamClass("ham_menu")}
+              if (hamClass === "ham_menu") {setHamClass(`${hamClass} ham_expand`); setMenuClass("absolute")}
+              else {setHamClass("ham_menu"); setMenuClass("collapsible")}
           }}>
-              <span>메뉴</span>
+              <span></span>
           </label>
-          <button className='bg-[#FFCC00] hidden top-0'>맞춤법 알아보기</button>
-          <button className='bg-[#FFCC00] hidden top-0'>분석 대시보드</button>
       </div>
+      <a href="/kr-grammar-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[40px]`}>맞춤법 알아보기</a>
+      <a href="/kr-grammar-dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[90px]`}>분석 대시보드</a>
+    </div>
   );
 }
 
@@ -29,7 +33,7 @@ function App() {
   return (
     <div className='w-full h-full flex flex-col justify-center align-center items-center'>
       <header className='w-full h-[40px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
-        <div className='logo'>KORRECT</div>
+        <a href="/" className='logo'>KORRECT</a>
         <HambergerMenu/>
       </header>
       <Outlet/>

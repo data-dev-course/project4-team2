@@ -12,6 +12,7 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
+import GrammarDashboard from './components/GrammarDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/kr-grammar-info",
         element: <GrammarInfo/>
+      },
+      {
+        path: "/kr-grammar-dashboard",
+        element: <GrammarDashboard/>
       }
     ]
   },
