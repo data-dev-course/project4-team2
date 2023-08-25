@@ -14,7 +14,19 @@
   color: #446DFF;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+
+.bg-0 {
+  background-color: #d7260d;
+}
+
+.bg-1 {
+  background-color: #009b4d;
+}
+
+.bg-2 {
+  background-color: #ffcc00;
 }
 
 .grammar-style {
