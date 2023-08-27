@@ -45,7 +45,7 @@ with DAG(
         ]
     )
     
-    check_created_table = RedshiftSQLOperator(
+    check_created_table_task = RedshiftSQLOperator(
         task_id='check_created_table',
         redshift_conn_id = 'redshift_dev_db',
         autocommit = True,
@@ -96,4 +96,4 @@ with DAG(
     
     
     
-    table_news_join_task >> table_webtoon_join_task  >> check_created_table >> table_union_task >> table_deduplication_task
+    table_news_join_task >> table_webtoon_join_task  >> check_created_table_task >> table_union_task >> table_deduplication_task
