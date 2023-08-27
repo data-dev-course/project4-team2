@@ -12,7 +12,7 @@ module "mwaa" {
   dag_s3_path       = "dags"
 
   ## If uploading requirements.txt or plugins, you can enable these via these options
-  plugins_s3_path      = "mwaa_plugins/plugins.zip"
+  # plugins_s3_path      = "mwaa_plugins/plugins.zip"
   requirements_s3_path = "mwaa_requirements/requirements.txt"
 
   logging_configuration = {
@@ -42,12 +42,13 @@ module "mwaa" {
     }
   }
 
-  # airflow_configuration_options = {
-  #   "core.load_default_connections" = "false"
-  #   "core.load_examples"            = "false"
-  #   "webserver.dag_default_view"    = "tree"
-  #   "webserver.dag_orientation"     = "TB"
-  # }
+  airflow_configuration_options = {
+    "core.dag_dir_list_interval" = 30
+    # "core.load_default_connections" = "false"
+    # "core.load_examples"            = "false"
+    # "webserver.dag_default_view"    = "tree"
+    # "webserver.dag_orientation"     = "TB"
+  }
 
   min_workers        = 1
   max_workers        = 2

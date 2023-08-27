@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 from airflow.providers.amazon.aws.operators.redshift_sql import RedshiftSQLOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime, timedelta
 
 scr_date = datetime.now().strftime('%Y-%m-%d')
@@ -35,8 +36,7 @@ with DAG(
             author VARCHAR(256),
             comment VARCHAR(30000),
             comment_publishd_at TIMESTAMP,
-            comment_date TIMESTAMP,
-            "tag" VARCHAR(20)
+            comment_date TIMESTAMP
         );
         """ 
     )
@@ -55,8 +55,14 @@ with DAG(
         ],
         method='APPEND'
     )
+    
+    trigger_redshift_pipeline = TriggerDagRunOperator(
+        task_id='trigger_redshift_pipeline',
+        trigger_dag_id = 'redshift_pipeline',
+        reset_dag_run=True,
+    )
 
-    check_table_created_task >> copy_to_redshift_task 
+    check_table_created_task >> copy_to_redshift_task >> trigger_redshift_pipeline
         
     
     
