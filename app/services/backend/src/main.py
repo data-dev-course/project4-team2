@@ -2,6 +2,9 @@ from fastapi import FastAPI
 import logging.config
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from .routers import comment_count,grammar_state,word_collection
+
+
 
 load_dotenv()
 
@@ -47,7 +50,14 @@ app.add_middleware(
 # app.include_router({router_name}, prefix="path")
 
 
+app.include_router(comment_count.router, prefix="/comment_count", tags=["comment_count"])
+app.include_router(grammar_state.router, prefix="/grammar_state", tags=["grammar_state"])
+
+
+
 # This path is for health check or test
 @app.get("/")
 async def root():
     return {"Connect"}
+
+  
