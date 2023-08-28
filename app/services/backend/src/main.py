@@ -52,6 +52,7 @@ app.add_middleware(
 
 app.include_router(comment_count.router, prefix="/comment_count", tags=["comment_count"])
 app.include_router(grammar_state.router, prefix="/grammar_state", tags=["grammar_state"])
+app.include_router(word_collection.router, prefix="/word_collection", tags=["word_collection"])
 
 
 

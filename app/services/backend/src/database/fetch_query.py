@@ -160,3 +160,37 @@ def fetch_grammar_state_from_db(start_time, end_time, tag=None):
     except Exception as e:
         print(f"error: {e}")
         raise
+
+
+
+
+def fetch_word_corrections_from_db(start_time, end_time):
+    try:
+        query = """
+            SELECT 
+    recorded_time, 
+    incorrect_word, 
+    corrected_word, 
+    content_tag, 
+    COUNT(*) AS occurrence_count,
+    ROW_NUMBER() OVER (PARTITION BY recorded_time, content_tag ORDER BY COUNT(*) DESC) AS rank
+FROM public."test_DM_HourlyWordCorrection"
+WHERE recorded_time BETWEEN %s AND %s
+GROUP BY recorded_time, incorrect_word, corrected_word, content_tag
+
+        """
+        params = [start_time, end_time]
+        
+        conn = conn_rds_postgre.connect_to_db()
+        if not conn:
+            return None
+        
+        with conn.cursor() as cursor:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+        
+        return results
+    
+    except Exception as e:
+        print(f"error: {e}")
+        raise
