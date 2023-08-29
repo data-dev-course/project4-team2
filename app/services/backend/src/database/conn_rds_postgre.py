@@ -9,17 +9,15 @@ import json
 from botocore.exceptions import ClientError
 
 
-from dotenv import load_dotenv
-# .env 파일의 경로 설정
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-
-# .env 파일 로드
-load_dotenv(dotenv_path)
-
-
-# 환경 변수 사용
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+""" 로컬 사용 시 .env를 통해 accesskey 가져와 사용 """
+# from dotenv import load_dotenv
+# # .env 파일의 경로 설정
+# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+# # .env 파일 로드
+# load_dotenv(dotenv_path)
+# # 환경 변수 사용
+# AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 def get_secret():
 
@@ -54,8 +52,8 @@ def connect_to_db():
     secrets = get_secret()
     try:
         connection = psycopg2.connect(
-            host="localhost",
-            port="5432",
+            host=secrets['host'],
+            port=secrets['port'],
             user=secrets['username'],
             password=secrets['password'],
             dbname=secrets['dbname']
