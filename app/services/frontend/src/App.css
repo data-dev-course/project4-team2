@@ -17,16 +17,21 @@
   filter: drop-shadow(0 0 1em #646cffaa);
 }
 
+.shadow-cm {
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.06);
+}
+
 .bg-0 {
   background-color: #d7260d;
 }
-
 .bg-1 {
+  background-color: #ffcc00;
+}
+.bg-2 {
   background-color: #009b4d;
 }
-
-.bg-2 {
-  background-color: #ffcc00;
+.bg-3 {
+  background-color: #9752DA;
 }
 
 .grammar-style {

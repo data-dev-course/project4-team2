@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import './App.css'
+import './App.css';
+import logo from './assets/logo_img.svg';
 
 export function HambergerMenu() {
   const [hamClass, setHamClass] = useState("ham_menu");
@@ -23,8 +24,9 @@ export function HambergerMenu() {
               <span></span>
           </label>
       </div>
-      <a href="/kr-grammar-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[40px]`}>맞춤법 알아보기</a>
-      <a href="/kr-grammar-dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[90px]`}>분석 대시보드</a>
+      <a href="/data-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[40px] z-10 shadow-cm`}>데이터 수집 현황</a>
+      <a href="/dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[90px] z-10 shadow-cm`}>분석 대시보드</a>
+      <a href="/ranking" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[140px] z-10 shadow-cm`}>맞춤법 순위</a>
     </div>
   );
 }
@@ -33,7 +35,9 @@ function App() {
   return (
     <div className='w-full h-full flex flex-col justify-center align-center items-center'>
       <header className='w-full h-[40px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
-        <a href="/" className='logo'>KORRECT</a>
+        <a href="/" className='logo flex justify-center'>
+          <img src={logo} alt="KORRECT"/>
+        </a>
         <HambergerMenu/>
       </header>
       <Outlet/>

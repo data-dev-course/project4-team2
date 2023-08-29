@@ -1,0 +1,704 @@
+[
+  {
+    "recorded_time": "2023-08-28T01:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 14464
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18280
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15797
+      }
+    ],
+    "all_count": 63635
+  },
+  {
+    "recorded_time": "2023-08-28T02:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 15094
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 17397
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16046
+      }
+    ],
+    "all_count": 113375
+  },
+  {
+    "recorded_time": "2023-08-28T03:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16297
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16358
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16372
+      }
+    ],
+    "all_count": 163080
+  },
+  {
+    "recorded_time": "2023-08-28T04:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16975
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15348
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16620
+      }
+    ],
+    "all_count": 211664
+  },
+  {
+    "recorded_time": "2023-08-28T05:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16616
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16488
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 18302
+      }
+    ],
+    "all_count": 261299
+  },
+  {
+    "recorded_time": "2023-08-28T06:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 14845
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18522
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17694
+      }
+    ],
+    "all_count": 315350
+  },
+  {
+    "recorded_time": "2023-08-28T07:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17835
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15362
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 18175
+      }
+    ],
+    "all_count": 367642
+  },
+  {
+    "recorded_time": "2023-08-28T08:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18755
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15588
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17238
+      }
+    ],
+    "all_count": 416515
+  },
+  {
+    "recorded_time": "2023-08-28T09:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16047
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16520
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15272
+      }
+    ],
+    "all_count": 467277
+  },
+  {
+    "recorded_time": "2023-08-28T10:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18970
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16260
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16560
+      }
+    ],
+    "all_count": 514784
+  },
+  {
+    "recorded_time": "2023-08-28T11:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 14687
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15865
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17929
+      }
+    ],
+    "all_count": 567188
+  },
+  {
+    "recorded_time": "2023-08-28T12:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18610
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15603
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15900
+      }
+    ],
+    "all_count": 619694
+  },
+  {
+    "recorded_time": "2023-08-28T13:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 21003
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 19083
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15017
+      }
+    ],
+    "all_count": 673035
+  },
+  {
+    "recorded_time": "2023-08-28T14:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 19241
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16378
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16068
+      }
+    ],
+    "all_count": 724920
+  },
+  {
+    "recorded_time": "2023-08-28T15:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 19439
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15802
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16932
+      }
+    ],
+    "all_count": 772702
+  },
+  {
+    "recorded_time": "2023-08-28T16:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 15048
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15409
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15324
+      }
+    ],
+    "all_count": 821394
+  },
+  {
+    "recorded_time": "2023-08-28T17:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17959
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16496
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17389
+      }
+    ],
+    "all_count": 869348
+  },
+  {
+    "recorded_time": "2023-08-28T18:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 14069
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15971
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15514
+      }
+    ],
+    "all_count": 919095
+  },
+  {
+    "recorded_time": "2023-08-28T19:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18262
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18666
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15336
+      }
+    ],
+    "all_count": 969068
+  },
+  {
+    "recorded_time": "2023-08-28T20:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 15971
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15206
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16407
+      }
+    ],
+    "all_count": 1020588
+  },
+  {
+    "recorded_time": "2023-08-28T21:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 19907
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 17014
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14081
+      }
+    ],
+    "all_count": 1068048
+  },
+  {
+    "recorded_time": "2023-08-28T22:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16365
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16555
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17363
+      }
+    ],
+    "all_count": 1119750
+  },
+  {
+    "recorded_time": "2023-08-28T23:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17784
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18901
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17763
+      }
+    ],
+    "all_count": 1174264
+  },
+  {
+    "recorded_time": "2023-08-29T00:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17850
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 14917
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16933
+      }
+    ],
+    "all_count": 1224446
+  },
+  {
+    "recorded_time": "2023-08-29T01:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18332
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16309
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16510
+      }
+    ],
+    "all_count": 1275670
+  },
+  {
+    "recorded_time": "2023-08-29T02:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18405
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 17940
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15752
+      }
+    ],
+    "all_count": 1324812
+  },
+  {
+    "recorded_time": "2023-08-29T03:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 15450
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15771
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14596
+      }
+    ],
+    "all_count": 1372156
+  },
+  {
+    "recorded_time": "2023-08-29T04:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16977
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 19373
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 17942
+      }
+    ],
+    "all_count": 1423688
+  },
+  {
+    "recorded_time": "2023-08-29T05:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 14217
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 13952
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 18900
+      }
+    ],
+    "all_count": 1474385
+  },
+  {
+    "recorded_time": "2023-08-29T06:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17845
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 17331
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 15943
+      }
+    ],
+    "all_count": 1523994
+  },
+  {
+    "recorded_time": "2023-08-29T07:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16335
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 20731
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16023
+      }
+    ],
+    "all_count": 1579429
+  },
+  {
+    "recorded_time": "2023-08-29T08:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18681
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 15854
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14535
+      }
+    ],
+    "all_count": 1627258
+  },
+  {
+    "recorded_time": "2023-08-29T09:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17440
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18297
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14751
+      }
+    ],
+    "all_count": 1676848
+  },
+  {
+    "recorded_time": "2023-08-29T10:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16542
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 17827
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16192
+      }
+    ],
+    "all_count": 1728908
+  },
+  {
+    "recorded_time": "2023-08-29T11:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 18041
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 18947
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14828
+      }
+    ],
+    "all_count": 1779455
+  },
+  {
+    "recorded_time": "2023-08-29T12:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 16772
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16689
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16143
+      }
+    ],
+    "all_count": 1831559
+  },
+  {
+    "recorded_time": "2023-08-29T13:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 19272
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 11824
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16739
+      }
+    ],
+    "all_count": 1878079
+  },
+  {
+    "recorded_time": "2023-08-29T14:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 17957
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16738
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 14844
+      }
+    ],
+    "all_count": 1925205
+  },
+  {
+    "recorded_time": "2023-08-29T15:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 15544
+      },
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 16718
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 16812
+      }
+    ],
+    "all_count": 1958735
+  }
+]

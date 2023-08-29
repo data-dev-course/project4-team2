@@ -19,7 +19,7 @@ function Home() {
                 <button className={`grammar-style ${textStyle3} ml-1.5 transition ease-in-out delay-150`} onClick={()=>{setText3("틀릴 수 있죠"); setTextStyle3("correct-btn")}}>{text3}</button>
                 <div className="grammar-style">?</div>
             </div>
-            <button className="bg-[#446DFF] rounded-[32px] my-5">
+            <button className="bg-[#446DFF] rounded-[32px] my-5 text-white">
                 SNS 속 틀린 맞춤법 알아보기
             </button>
         </div>

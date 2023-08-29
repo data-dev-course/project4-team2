@@ -2,7 +2,6 @@
 import "../App.css";
 
 function BarChart(props) {
-
     return (
         <div className="bar-chart w-full min-w-[320px] px-1">
             <div className="chart-header w-full flex flex-row gap-4 items-baseline">
@@ -16,7 +15,7 @@ function BarChart(props) {
                 {
                     props.data.map((elem, i) => (
                         <span key={i} 
-                        className={`bar bar-loc-${i} h-4 bg-${i}`} 
+                        className={`bar bar-loc-${i} h-4 bg-${props.colorset[i]}`} 
                         style={{
                             gridColumn: `span ${elem/10} / span ${elem/10}`,
                             borderRadius: `${i===0?16:0}px ${i===props.data.length-1?16:0}px ${i===props.data.length-1?16:0}px ${i===0?16:0}px`
@@ -28,7 +27,7 @@ function BarChart(props) {
                 {
                     props.columns.map((elem, i) => (
                         <div key={i} className="flex flex-row items-center gap-2">
-                            <span className={`w-2.5 h-2.5 rounded-lg bg-${i}`}></span>
+                            <span className={`w-2.5 h-2.5 rounded-lg bg-${props.colorset[i]}`}></span>
                             <div className="font-medium">{elem}</div>
                             <div className="text-[#999797]">{props.data[i]}%</div>
                         </div>
