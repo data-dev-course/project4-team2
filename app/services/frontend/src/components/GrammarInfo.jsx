@@ -1,6 +1,6 @@
 import BarChart from "./BarChart";
 import "../App.css";
-import BarChartTime from "./LineBarGraph";
+import DataPerTimeChart from "./LineBarGraph";
 
 function GrammarInfo() {
     return (
@@ -9,8 +9,8 @@ function GrammarInfo() {
             title="댓글 수집 현황" 
             data={[50,30,20]} 
             columns={["YouTube", "Naver News", "Naver Webtoon"]} 
-            colorset={["0", "1", "2"]}/>
-            <BarChartTime/>
+            colorset={["0", "1", "2"]} selectHidden="hidden"/>
+            <DataPerTimeChart title="시간별 수집 현황"/>
         </div>
     )
 }

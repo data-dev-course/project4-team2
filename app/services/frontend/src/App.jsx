@@ -24,9 +24,9 @@ export function HambergerMenu() {
               <span></span>
           </label>
       </div>
-      <a href="/data-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[40px] z-10 shadow-cm`}>데이터 수집 현황</a>
-      <a href="/dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[90px] z-10 shadow-cm`}>분석 대시보드</a>
-      <a href="/ranking" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#FFCC00] transition ease-in-out ${menuClass} right-3 top-[140px] z-10 shadow-cm`}>맞춤법 순위</a>
+      <a href="/data-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[40px] z-10 shadow-cm`}>데이터 수집 현황</a>
+      <a href="/dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[90px] z-10 shadow-cm`}>분석 대시보드</a>
+      <a href="/ranking" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[140px] z-10 shadow-cm`}>맞춤법 순위</a>
     </div>
   );
 }
@@ -34,7 +34,7 @@ export function HambergerMenu() {
 function App() {
   return (
     <div className='w-full h-full flex flex-col justify-center align-center items-center'>
-      <header className='w-full h-[40px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
+      <header className='w-full h-[40px] min-w-[320px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
         <a href="/" className='logo flex justify-center'>
           <img src={logo} alt="KORRECT"/>
         </a>

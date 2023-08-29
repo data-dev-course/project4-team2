@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.8rem;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -22,16 +22,20 @@
 }
 
 .bg-0 {
-  background-color: #d7260d;
+  /*background-color: #d7260d;*/
+  background-color: #fa5e68;
 }
 .bg-1 {
-  background-color: #ffcc00;
+  /*background-color: #ffcc00;*/
+  /*background-color: #FDB45C;*/
+  background-color: #FFD644;
 }
 .bg-2 {
-  background-color: #009b4d;
+  /*background-color: #009b4d;*/
+  background-color: #46BFBD; /*"#6bb167" "46BFBD"*/
 }
 .bg-3 {
-  background-color: #9752DA;
+  background-color: #d271ec; /*#d271ec d782ee*/
 }
 
 .grammar-style {
@@ -89,7 +93,7 @@
   position:absolute;
   right: 0%;
   top: 50%;
-  width: 28px;
+  width: 20px;
   height: 20px;
   background: transparent;
   transform: translate(-50%, -50%);
@@ -122,10 +126,10 @@
 .ham_menu span:after {top: 8px;}
 .ham_menu.ham_expand span {background: transparent;}
 .ham_menu.ham_expand span:before {
-  background: #FFCC00; top: 0px; transform: rotate(45deg);
+  background: #446DFF; top: 0px; transform: rotate(45deg);
 }
 .ham_menu.ham_expand span:after {
-  background: #FFCC00; top: 0px; transform: rotate(-45deg);
+  background: #446DFF; top: 0px; transform: rotate(-45deg);
 }
 
 .burger-check {
@@ -143,6 +147,9 @@
   cursor: pointer;
   transform-origin: right;
   animation: scaleUp 0.5s ease-in-out;
+}
+.toggle-menu-btn:focus {
+  background-color: #446DFF;
 }
 
 .toggle-menu-btn.collapsible {
@@ -174,4 +181,20 @@
 
 .toggle-menu-btn:hover, .toggle-menu-btn:active {
   transform: translateX(-10px);
+}
+
+select {
+  -moz-appearance: none; 
+  -webkit-appearance: none; 
+  appearance: none;
+}
+
+select:hover, select:focus {
+  border:none;
+}
+
+select:focus {
+  border-color: transparent;
+  background-color: #446DFF;
+  outline: none;
 }
