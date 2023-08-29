@@ -1,7 +1,7 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from plugins import s3, youtube_api
+from plugins import s3, youtube_api, youtube_api_v2
 
 DAG_ID = 'youtube_copy_to_S3'
 
@@ -20,7 +20,7 @@ with DAG(
     
     get_youtube_data_task = PythonOperator(
         task_id = 'get_youtube_data',
-        python_callable=youtube_api.get_data
+        python_callable=youtube_api_v2.get_data
 
     )
     
