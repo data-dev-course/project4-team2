@@ -1,0 +1,16 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - 'npm ci' # This ensures reproducible builds by using package-lock.json
+    build:
+      commands:
+        - 'npm run build'
+  artifacts:
+    baseDirectory: dist # Vite's default output directory is "dist"
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - 'node_modules/**/*'
