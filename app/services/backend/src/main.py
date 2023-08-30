@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routers import comment_count,grammar_state,word_collection
 
 
-
 load_dotenv()
 
 logger = logging.getLogger("Grammar Error Insight Backend")

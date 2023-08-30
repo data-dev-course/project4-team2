@@ -139,7 +139,7 @@ function BarChartTime(props) {
     //if (status === "loading") {
     //    return <Loading/>;
     //}
-    return <canvas id="bar_chart_time" ref={chartRef} width="auto" height="400" className=' md:max-h-96'/>;
+    return <canvas id="bar_chart_time" ref={chartRef} width="auto" height="400" className='md:max-h-96'/>;
 }
 
 function DataPerTimeChart(props) {

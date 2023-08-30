@@ -202,5 +202,29 @@
       }
     ],
     "all_count": 8364
+  },
+  {
+    "recorded_time": "2023-08-30T01:00:00",
+    "tags": [
+      {
+        "content_tag": "news",
+        "total_comment_count": 485
+      },
+      {
+        "content_tag": "youtube",
+        "total_comment_count": 7879
+      }
+    ],
+    "all_count": 8364
+  },
+  {
+    "recorded_time": "2023-08-30T07:00:00",
+    "tags": [
+      {
+        "content_tag": "webtoon",
+        "total_comment_count": 3275
+      }
+    ],
+    "all_count": 3275
   }
 ]
