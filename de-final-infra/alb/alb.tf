@@ -7,7 +7,7 @@ resource "aws_lb_target_group" "alb_ecs_amplify" {
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 health_check {
     enabled = true
-    path    = "/health"
+    path    = "/"
   }
 }
 resource "aws_alb" "alb_ecs_amplify" {
@@ -16,7 +16,7 @@ resource "aws_alb" "alb_ecs_amplify" {
   load_balancer_type = "application"
 subnets = [
     data.terraform_remote_state.vpc.outputs.public_subnets[1],
-    data.terraform_remote_state.vpc.outputs.ecs_private_subnets[1]
+    data.terraform_remote_state.vpc.outputs.public_subnets[2],
     
   ]
 security_groups = [
