@@ -33,8 +33,8 @@ resource "aws_ecs_task_definition" "ecs" {
     "name"  = "de-3-2-backend",
     "image" = "${aws_ecr_repository.repo.repository_url}:latest",
     "portMappings" = [{
-      "containerPort" = 80,
-      "hostPort" = 80
+      "containerPort" = 8000,
+      "hostPort": 8000
     }],
     "secrets" = [{
       "name" = var.env_key_name,
@@ -44,30 +44,6 @@ resource "aws_ecs_task_definition" "ecs" {
       "valueFrom" = aws_secretsmanager_secret.access_key_secret.arn
     }],
   }])
-
-  #container_definitions = jsonencode([{
-  #  name  = "de-3-2-backend"
-  #  image = "${aws_ecr_repository.repo.repository_url}:latest"
-  #  portMappings = [{
-  #    containerPort = 80,
-  #    hostPort = 80
-  #  }]
-  #  environment: [{
-  #    name: var.env_key_name,
-  #    value: var.env_key_value
-  #  },{
-  #    name: var.env_key_secret_name,
-  #    value: var.env_key_secret_value
-  #  }]
-  #  logConfiguration : {
-  #      logDriver : "awslogs",
-  #      options : {
-  #        "awslogs-region" : "ap-northeast-2",
-  #        "awslogs-group" : "/ecs/de-3-2-backend",
-  #        "awslogs-stream-prefix" : "ecs"
-  #      }
-  #    }
-  #}])
 }
 
 # Create ECS service with Fargate launch type
@@ -81,5 +57,10 @@ resource "aws_ecs_service" "ecs" {
   network_configuration {
     subnets = data.terraform_remote_state.vpc.outputs.ecs_private_subnets # Replace with your actual subnet IDs
     security_groups = [data.terraform_remote_state.vpc.outputs.aws_security_group_default_id] # Replace with your security group ID
+  }
+  load_balancer {
+    target_group_arn = var.alb_target_group_arn
+    container_name   = "de-3-2-backend"
+    container_port   = 8000
   }
 }
