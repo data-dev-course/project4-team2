@@ -7,6 +7,11 @@ variable "container_port" {
   default = 80
 }
 
+variable "aws_region" {
+  default = "ap-northeast-2"
+}
+
+
 variable "execution_role_arn" {
 }
 
