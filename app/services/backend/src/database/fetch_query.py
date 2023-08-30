@@ -4,7 +4,7 @@ from typing import List, Dict, Optional
 from fastapi import HTTPException
 
 def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
-    try :
+    try:
         if not start_time or not end_time:
             end_time = datetime.now()
             start_time = end_time - timedelta(hours=24)
@@ -35,6 +35,7 @@ def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
         results = cursor.fetchall()
         cursor.close()
         conn.close()
+
         # 데이터 가공하여 원하는 형태로 구성
         processed_results = []
         current_recorded_time = None
@@ -42,11 +43,14 @@ def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
         all_count = 0
 
         for recorded_time, content_tag, total_comment_count in results:
+            # 각 시간대가 바뀔 때 all_count를 0으로 초기화합니다.
+            if recorded_time != current_recorded_time:
+                all_count = 0
+
             all_count += total_comment_count
 
             if recorded_time != current_recorded_time:
                 if current_entry is not None:
-                    current_entry["all_count"] = all_count
                     processed_results.append(current_entry)
                 current_recorded_time = recorded_time
                 current_entry = {
@@ -58,9 +62,9 @@ def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
                 "content_tag": content_tag,
                 "total_comment_count": total_comment_count
             })
+            current_entry["all_count"] = all_count  # 각 시간대별로 all_count 업데이트
 
         if current_entry is not None:
-            current_entry["all_count"] = all_count
             processed_results.append(current_entry)
         
         return processed_results
@@ -68,8 +72,6 @@ def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
     except Exception as e:
         print(f"error : {e}")
         raise HTTPException(status_code=500, detail="An error occurred while processing the data.")
-
-
 
 
 
