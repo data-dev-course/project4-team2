@@ -7,7 +7,6 @@ frontend:
         - 'npm ci' # This ensures reproducible builds by using package-lock.json
     build:
       commands:
-        - cd app/services/frontend
         - npm run build
   artifacts:
     baseDirectory: app/services/frontend/dist # Vite's default output directory is "dist"
