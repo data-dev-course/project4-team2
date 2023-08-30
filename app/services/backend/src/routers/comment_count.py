@@ -83,6 +83,7 @@ async def get_comments(
     tag: str = Query(None, description="태그 [ youtube, news, webtoon ]")
 ):
     try:
+        print('start get_comment')
         results = fetch_query.fetch_comments_from_db(start_time, end_time, tag)
         
         if not results:
