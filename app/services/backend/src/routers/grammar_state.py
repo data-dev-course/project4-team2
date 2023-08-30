@@ -35,7 +35,7 @@ router = APIRouter()
 
 ## Request Example:
 - GET /grammar_state/?start_Time=2023-08-27 22:12:03&end_time=2023-08-28 22:12:03
-- GET /comment_count/?tag=youtube
+- GET /grammar_state/?tag=youtube
 - GET /grammar_state/
 
 **Response:**    
