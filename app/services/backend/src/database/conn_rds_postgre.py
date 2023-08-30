@@ -51,6 +51,7 @@ def get_secret():
 def connect_to_db():
     secrets = get_secret()
     try:
+        print('start conn postgresql!')
         connection = psycopg2.connect(
             host=secrets['host'],
             port=secrets['port'],
