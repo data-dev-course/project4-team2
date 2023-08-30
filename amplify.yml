@@ -6,12 +6,12 @@ frontend:
         - 'npm ci' # This ensures reproducible builds by using package-lock.json
     build:
       commands:
-        - cd app/serivces/frontend
+        - cd app/services/frontend
         - npm run build
   artifacts:
-    baseDirectory: dist # Vite's default output directory is "dist"
+    baseDirectory: app/services/frontend/dist # Vite's default output directory is "dist"
     files:
       - '**/*'
   cache:
     paths:
-      - 'node_modules/**/*'
+      - 'app/services/frontend/node_modules/**/*'
