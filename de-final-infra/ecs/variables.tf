@@ -9,3 +9,19 @@ variable "container_port" {
 
 variable "execution_role_arn" {
 }
+
+variable "env_key_name" {
+  description = "ECS as environment variables."
+}
+
+variable "env_key_secret_name" {
+  description = "ECS as environment variables. ACCESS KEY"
+}
+
+variable "env_key_value" {
+  description = "ECS as environment variables."
+}
+
+variable "env_key_secret_value" {
+  description = "ECS as environment variables. ACCESS KEY"
+}

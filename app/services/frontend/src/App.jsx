@@ -1,35 +1,43 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import './App.css'
+import './App.css';
+import logo from './assets/logo_img.svg';
 
 export function HambergerMenu() {
   const [hamClass, setHamClass] = useState("ham_menu");
-  const handleSidebarClose = () => {
-      setHamClass("ham_menu");
-      const checkbox = document.getElementById("burger-check");
-      checkbox.checked = false;
+  const [menuClass, setMenuClass] = useState("collapsible hidden");
+  const handleDropdown = () => {
+    setHamClass("ham_menu");
+    setMenuClass("collapsible hidden");
+    const checkbox = document.getElementById("burger-check");
+    checkbox.checked = false;
   }
   return (
+    <div>
       <div className="burger_menu_wrap">
           <input className="burger-check" type="checkbox" id="burger-check" />
           <label href="#" className={hamClass} htmlFor="burger-check"
           onClick={()=>{
-              if (hamClass === "ham_menu") {setHamClass(`${hamClass} ham_expand`)}
-              else {setHamClass("ham_menu")}
+              if (hamClass === "ham_menu") {setHamClass(`${hamClass} ham_expand`); setMenuClass("absolute")}
+              else {setHamClass("ham_menu"); setMenuClass("collapsible")}
           }}>
-              <span>메뉴</span>
+              <span></span>
           </label>
-          <button className='bg-[#FFCC00] hidden top-0'>맞춤법 알아보기</button>
-          <button className='bg-[#FFCC00] hidden top-0'>분석 대시보드</button>
       </div>
+      <a href="/data-info" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[40px] z-10 shadow-cm`}>데이터 수집 현황</a>
+      <a href="/dashboard" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[90px] z-10 shadow-cm`}>분석 대시보드</a>
+      <a href="/ranking" onClick={()=>{handleDropdown();}} className={`toggle-menu-btn bg-[#446DFF] transition ease-in-out ${menuClass} right-3 top-[140px] z-10 shadow-cm`}>맞춤법 순위</a>
+    </div>
   );
 }
 
 function App() {
   return (
     <div className='w-full h-full flex flex-col justify-center align-center items-center'>
-      <header className='w-full h-[40px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
-        <div className='logo'>KORRECT</div>
+      <header className='w-full h-[40px] min-w-[320px] order-first sticky flex flex-row justify-between bg-[#f9fafc]'>
+        <a href="/" className='logo flex justify-center'>
+          <img src={logo} alt="KORRECT"/>
+        </a>
         <HambergerMenu/>
       </header>
       <Outlet/>

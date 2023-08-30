@@ -1,6 +1,6 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable-dynamic-subset.css");
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
-@import "App.css"
+@import "App.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,12 +26,9 @@
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  font-weight: 400;
+  color: black;
+  text-decoration: none;
 }
 
 body {

@@ -9,6 +9,8 @@ uvicorn = "*"
 python-dotenv = "*"
 pytest = "*"
 httpx = "*"
+boto3 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

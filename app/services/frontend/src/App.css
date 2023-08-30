@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.8rem;
   text-align: center;
   width: 100%;
   height: 100%;
@@ -14,7 +14,28 @@
   color: #446DFF;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 1em #646cffaa);
+}
+
+.shadow-cm {
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.06);
+}
+
+.bg-0 {
+  /*background-color: #d7260d;*/
+  background-color: #fa5e68;
+}
+.bg-1 {
+  /*background-color: #ffcc00;*/
+  /*background-color: #FDB45C;*/
+  background-color: #FFD644;
+}
+.bg-2 {
+  /*background-color: #009b4d;*/
+  background-color: #46BFBD; /*"#6bb167" "46BFBD"*/
+}
+.bg-3 {
+  background-color: #d271ec; /*#d271ec d782ee*/
 }
 
 .grammar-style {
@@ -22,6 +43,15 @@
   padding: 0.2em 0.01em;
   text-align: center;
   font-size: 1.5em;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(1,1,1,0);
+}
+
+.grammar-style-sm {
+  color: #000;
+  padding: 0.2em 0.01em;
+  text-align: center;
+  font-size: 1em;
   border-radius: 0;
   border-bottom: 2px solid rgba(1,1,1,0);
 }
@@ -63,7 +93,7 @@
   position:absolute;
   right: 0%;
   top: 50%;
-  width: 28px;
+  width: 20px;
   height: 20px;
   background: transparent;
   transform: translate(-50%, -50%);
@@ -96,12 +126,75 @@
 .ham_menu span:after {top: 8px;}
 .ham_menu.ham_expand span {background: transparent;}
 .ham_menu.ham_expand span:before {
-  background: #FFCC00; top: 0px; transform: rotate(45deg);
+  background: #446DFF; top: 0px; transform: rotate(45deg);
 }
 .ham_menu.ham_expand span:after {
-  background: #FFCC00; top: 0px; transform: rotate(-45deg);
+  background: #446DFF; top: 0px; transform: rotate(-45deg);
 }
 
 .burger-check {
   display: none;
+}
+
+.toggle-menu-btn {
+  width: fit-content;
+  border-radius: 32px;
+  padding: 0.5em 20px;
+  color: #FFF;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transform-origin: right;
+  animation: scaleUp 0.5s ease-in-out;
+}
+.toggle-menu-btn:focus {
+  background-color: #446DFF;
+}
+
+.toggle-menu-btn.collapsible {
+  position:absolute;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.6s ease-in-out fadeout 0.5s ease-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform-origin:right;
+    transform: scaleX(0);
+  }
+  100% {
+    transform-origin:right;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fadeout {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
+.toggle-menu-btn:hover, .toggle-menu-btn:active {
+  transform: translateX(-10px);
+}
+
+select {
+  -moz-appearance: none; 
+  -webkit-appearance: none; 
+  appearance: none;
+}
+
+select:hover, select:focus {
+  border:none;
+}
+
+select:focus {
+  border-color: transparent;
+  background-color: #446DFF;
+  outline: none;
 }

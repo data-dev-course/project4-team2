@@ -12,6 +12,8 @@ import {
   QueryClient,
   QueryClientProvider
 } from '@tanstack/react-query'
+import GrammarDashboard from './components/GrammarDashboard.jsx'
+import Ranking from './components/RankingChart.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,16 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       {
-        path: "/kr-grammar-info",
+        path: "/data-info",
         element: <GrammarInfo/>
+      },
+      {
+        path: "/dashboard",
+        element: <GrammarDashboard/>
+      },
+      {
+        path: "/ranking",
+        element: <Ranking/>
       }
     ]
   },
