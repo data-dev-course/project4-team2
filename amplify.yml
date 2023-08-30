@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd app/services/frontend
         - 'npm ci' # This ensures reproducible builds by using package-lock.json
     build:
       commands:
