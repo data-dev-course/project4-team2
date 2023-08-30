@@ -25,3 +25,5 @@ variable "env_key_value" {
 variable "env_key_secret_value" {
   description = "ECS as environment variables. ACCESS KEY"
 }
+
+variable "alb_target_group_arn" {}

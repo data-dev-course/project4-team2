@@ -6,6 +6,15 @@ resource "aws_security_group" "default" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
+    from_port = 8000       # You could set additional ingress port 
+    to_port   = 8000
+    protocol  = "tcp"
+    cidr_blocks = [
+      "10.0.0.0/8",
+    ]
+  }
+    
+  ingress {
     from_port = 80       # You could set additional ingress port 
     to_port   = 80
     protocol  = "tcp"
@@ -39,6 +48,14 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "https any outbound"
+  }
+
+  egress {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "http any outbound"
   }
 
   egress {
