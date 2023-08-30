@@ -1,7 +1,7 @@
 #alb.tf
 resource "aws_lb_target_group" "alb_ecs_amplify" {
   name        = "alb-ecs-amplify"
-  port        = 3000
+  port        = 8000
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
@@ -26,7 +26,7 @@ security_groups = [
 }
 resource "aws_alb_listener" "my_api_http" {
   load_balancer_arn = aws_alb.alb_ecs_amplify.arn
-  port              = "80"
+  port              = "8000"
   protocol          = "HTTP"
   default_action {
   type             = "forward"
