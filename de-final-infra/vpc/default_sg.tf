@@ -32,7 +32,6 @@ resource "aws_security_group" "default" {
     description = "inbound rule for jmx exporter"
   }
 
-
   # Instance should allow node exporter to access for monitoring
   ingress {
     from_port   = 9100

@@ -107,7 +107,7 @@ resource "aws_subnet" "public" {
   count  = length(var.availability_zones)
 
   cidr_block = "10.${var.cidr_numeral}.${var.cidr_numeral_public[count.index]}.0/20"
-  availability_zone = "ap-northeast-2a"
+  availability_zone = element(var.availability_zones, count.index)
 
   # Public IP will be assigned automatically when the instance is launch in the public subnet
   map_public_ip_on_launch = true
