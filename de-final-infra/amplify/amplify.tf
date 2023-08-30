@@ -4,14 +4,12 @@ resource "aws_amplify_app" "frontend" {
     iam_service_role_arn = var.iam_service_role_arn
     oauth_token = var.GITHUB_TOKEN
     platform = "WEB"
-    # Additional settings if necessary
-    #auto_branch_creation_config {
-    #    enable_auto_branch_creation = false
-    #    #auto_branch_creation_patterns = [
-    #    #  "feature/*",
-    #    #  "hotfix/*"
-    #    #]
-    #}
+    custom_rule {
+        source          = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|woff2|map|json)$)([^.]+$)/>"
+        target          = "/index.html"
+        status          = "200"
+        condition       = null # This is optional, and since we're not using a condition, it's an empty string.
+    }
 }
 
 resource "aws_amplify_branch" "frontend" {
@@ -19,6 +17,7 @@ resource "aws_amplify_branch" "frontend" {
     branch_name = "main"
     #base_directory = "app/services/frontend"
     stage = "PRODUCTION"
+    
 }
 
 resource "aws_amplify_webhook" "frontend" {
