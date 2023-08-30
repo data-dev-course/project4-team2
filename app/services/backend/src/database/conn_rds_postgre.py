@@ -50,6 +50,8 @@ def get_secret():
 
 def connect_to_db():
     secrets = get_secret()
+    print('---- log 용 ---- ')
+    print(secrets)
     try:
         print('start conn postgresql!')
         connection = psycopg2.connect(
