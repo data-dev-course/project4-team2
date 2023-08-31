@@ -39,6 +39,7 @@ jobs:
         cd app
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./services/backend
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        echo Image Name = $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
         
     - name: Debug image name
