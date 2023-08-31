@@ -39,4 +39,19 @@ jobs:
         cd app
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./services/backend
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-    
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      id: task-def
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: 862327261051.dkr.ecr.ap-northeast-2.amazonaws.com/de-3-2/backend:latest
+        image: $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: service-backend
+        cluster: de-3-2-cluster
+        wait-for-service-stability: true
