@@ -55,10 +55,10 @@ def connect_to_db():
     try:
         print('start conn postgresql!')
         connection = psycopg2.connect(
-            # host='localhost',
-            # port='5432',
-            host=secrets['host'],
-            port=secrets['port'],
+            host='localhost',
+            port='5432',
+            # host=secrets['host'],
+            # port=secrets['port'],
             user=secrets['username'],
             password=secrets['password'],
             dbname=secrets['dbname']
