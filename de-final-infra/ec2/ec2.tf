@@ -24,6 +24,7 @@ resource "aws_instance" "DE-3-2_bastion" {
     tags = var.instance_tags
 
     vpc_security_group_ids = [
-        data.terraform_remote_state.databases.outputs.db_security_group_id
+        data.terraform_remote_state.databases.outputs.db_security_group_id,
+        data.terraform_remote_state.vpc.outputs.aws_security_group_default_id
     ]
 }

@@ -21,6 +21,10 @@ resource "aws_secretsmanager_secret_version" "access_key_secret" {
   secret_string = var.env_key_secret_value
 }
 
+resource "aws_cloudwatch_log_group" "ecs_log_group" {
+  name = "ecs-logs"
+}
+
 # Create ECS task definition with Fargate
 resource "aws_ecs_task_definition" "ecs" {
   family                   = "de-3-2-task"
@@ -28,7 +32,8 @@ resource "aws_ecs_task_definition" "ecs" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024" # 1 cpu
   memory                   = "2048" # 2gb
-  execution_role_arn = var.execution_role_arn
+  execution_role_arn       = var.execution_role_arn
+
   container_definitions = jsonencode([{
     "name"  = "de-3-2-backend",
     "image" = "${aws_ecr_repository.repo.repository_url}:latest",
@@ -43,8 +48,17 @@ resource "aws_ecs_task_definition" "ecs" {
       "name" = var.env_key_secret_name,
       "valueFrom" = aws_secretsmanager_secret.access_key_secret.arn
     }],
+    "logConfiguration" = {
+      "logDriver" = "awslogs",
+      "options" = {
+        "awslogs-group"         = aws_cloudwatch_log_group.ecs_log_group.name,
+        "awslogs-region"        = var.aws_region,
+        "awslogs-stream-prefix" = "ecs"
+      }
+    }
   }])
 }
+
 
 # Create ECS service with Fargate launch type
 resource "aws_ecs_service" "ecs" {
