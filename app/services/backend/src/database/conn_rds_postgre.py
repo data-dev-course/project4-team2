@@ -63,7 +63,7 @@ def connect_to_db():
             password=secrets['password'],
             dbname=secrets['dbname']
         )
-        print("Successfully connected to the database!!!!")
+        print("Successfully connected to the database!!!!!")
         return connection
     except Exception as e:
         print(f"Error while connecting to the database: {e}")
