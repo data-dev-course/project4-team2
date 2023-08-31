@@ -47,7 +47,10 @@ jobs:
         task-definition: task-definition.json
         container-name: de-3-2-backend
         image: $REGISTRY/$REPOSITORY:$IMAGE_TAG
-
+        
+    - name: Debug image name
+      run: echo Image Name = $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
