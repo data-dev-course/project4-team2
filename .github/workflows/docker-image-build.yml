@@ -50,9 +50,9 @@ jobs:
         
     - name: Debug image name
       run: |
-        echo REGISTRY=$REGISTRY
-        echo REPOSITORY=$REPOSITORY
-        echo IMAGE_TAG=$IMAGE_TAG
+        echo REGISTRY=${{ env.REGISTRY }}
+        echo REPOSITORY=${{ env.REPOSITORY }}
+        echo IMAGE_TAG=${{ env.IMAGE_TAG }}
         echo Image Name = $REGISTRY/$REPOSITORY:$IMAGE_TAG
       
     - name: Deploy Amazon ECS task definition
