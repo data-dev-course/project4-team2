@@ -14,7 +14,7 @@ def fetch_comments_from_db(start_time=None, end_time=None, tag=None):
         print(f'start : {start_time}, end : {end_time}')
         query = """
             SELECT recorded_time, content_Tag, SUM(comment_count) AS total_comment_count
-            FROM public."test_DM_HourlyCommentSummary"
+            FROM public."hourly_comment_summary"
             WHERE recorded_time BETWEEN %s AND %s
         """
         params = [start_time, end_time]
@@ -80,7 +80,7 @@ def fetch_grammar_state_from_db(start_time, end_time, tag=None):
         query = """
             SELECT recorded_time, content_tag, SUM(total_count) as total_count, 
                    SUM(incorrect_count) as incorrect_count, SUM(correct_count) as correct_count
-            FROM public."test_DM_DailyGrammarStats"
+            FROM public."daily_grammer_stats"
             WHERE recorded_time BETWEEN %s AND %s
         """
         params = [start_time, end_time]
@@ -168,6 +168,7 @@ def fetch_grammar_state_from_db(start_time, end_time, tag=None):
 
 def fetch_word_corrections_from_db(start_time, end_time):
     try:
+        print(f'---- query start - {datetime.now()} ----')
         query = """
             SELECT 
     recorded_time, 
@@ -177,11 +178,10 @@ def fetch_word_corrections_from_db(start_time, end_time):
     COUNT(*) AS occurrence_count,
     ROW_NUMBER() OVER (PARTITION BY recorded_time, content_tag ORDER BY COUNT(*) DESC) AS rank,
     check_reult
-FROM public."test_DM_HourlyWordCorrection"
+FROM public.hour_word_corretion
 WHERE recorded_time BETWEEN %s AND %s
 AND check_reult > 0
 GROUP BY recorded_time, incorrect_word, corrected_word, content_tag,check_reult
-
         """
         params = [start_time, end_time]
         
@@ -193,6 +193,7 @@ GROUP BY recorded_time, incorrect_word, corrected_word, content_tag,check_reult
             cursor.execute(query, params)
             results = cursor.fetchall()
         
+        print(f'---- query fetch - {datetime.now()} ----')
         return results
     
     except Exception as e:
@@ -210,7 +211,7 @@ def fetch_check_result_counts(start_time, end_time):
                 check_reult,
                 COUNT(*) as count
             FROM
-                public."test_DM_HourlyWordCorrection"
+                public.hour_word_corretion
             WHERE
                 recorded_time BETWEEN %s AND %s
             GROUP BY
