@@ -1,0 +1,3 @@
+dag_id: 'Daily_Grammer_Stats'
+table: 'daily_grammer_stats'
+schema: 'analytics'

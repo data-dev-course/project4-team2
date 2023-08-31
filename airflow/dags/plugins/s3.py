@@ -1,5 +1,7 @@
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.models import Variable
+
+
 def upload_to_s3(data):
     scr_date = data[0]
     s3_hook = S3Hook()
@@ -14,3 +16,4 @@ def upload_to_s3(data):
         replace=True
     )
     print(f"youtube data uploaded to {s3_bucket}/{s3_key}")
+    

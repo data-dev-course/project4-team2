@@ -1,0 +1,3 @@
+dag_id: 'Hourly_Comment_Summary'
+table: 'hourly_comment_summary'
+schema: 'analytics'

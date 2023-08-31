@@ -14,7 +14,7 @@ with DAG(
     default_args = default_args ,
     start_date=datetime(2022, 8, 17),
     catchup=False,
-    schedule_interval="10 0 * * *"
+    schedule_interval=None
 )as dag:
     
 
@@ -56,13 +56,8 @@ with DAG(
         method='APPEND'
     )
     
-    trigger_redshift_pipeline = TriggerDagRunOperator(
-        task_id='trigger_redshift_pipeline',
-        trigger_dag_id = 'redshift_pipeline',
-        reset_dag_run=True,
-    )
 
-    check_table_created_task >> copy_to_redshift_task >> trigger_redshift_pipeline
+    check_table_created_task >> copy_to_redshift_task 
         
     
     
