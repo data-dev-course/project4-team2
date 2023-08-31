@@ -37,17 +37,11 @@ jobs:
         IMAGE_TAG: 'latest'
       run: |
         cd app
+        REGISTRY=${{ steps.login-ecr.outputs.registry }}
         docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG ./services/backend
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
-        echo Image Name = $REGISTRY/$REPOSITORY:$IMAGE_TAG
-
-        
-    - name: Debug image name
-      run: |
-        echo REGISTRY=${{ env.REGISTRY }}
-        echo REPOSITORY=${{ env.REPOSITORY }}
-        echo IMAGE_TAG=${{ env.IMAGE_TAG }}
-        echo Image Name = $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        echo "REGISTRY_OUTPUT=$REGISTRY" >> $GITHUB_ENV
+        echo "IMAGE_NAME_OUTPUT=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
@@ -55,7 +49,7 @@ jobs:
       with:
         task-definition: task-definition.json
         container-name: de-3-2-backend
-        image: $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        image:  ${{ env.IMAGE_NAME_OUTPUT }}
       
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
