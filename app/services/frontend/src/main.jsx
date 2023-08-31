@@ -14,11 +14,13 @@ import {
 } from '@tanstack/react-query'
 import GrammarDashboard from './components/GrammarDashboard.jsx'
 import Ranking from './components/RankingChart.jsx'
+import Error404 from './components/error404.jsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App/>,
+    errorElement: <Error404/>,
     children: [
       { index: true, element: <Home /> },
       {
@@ -32,6 +34,9 @@ const router = createBrowserRouter([
       {
         path: "/ranking",
         element: <Ranking/>
+      },{
+        path: "/*",
+        element: <Error404/>
       }
     ]
   },

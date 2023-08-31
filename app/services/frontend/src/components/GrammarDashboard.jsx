@@ -1,5 +1,8 @@
 import BarChart from "./BarChart";
 import "../App.css";
+import { useQuery } from "@tanstack/react-query";
+
+//console.log(import.meta.env.VITE_API_ENDPOINT);
 
 function GrammarDashboard() {
     return (

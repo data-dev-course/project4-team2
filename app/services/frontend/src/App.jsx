@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import './App.css';
 import logo from './assets/logo_img.svg';
 
-export function HambergerMenu() {
+function HambergerMenu() {
   const [hamClass, setHamClass] = useState("ham_menu");
   const [menuClass, setMenuClass] = useState("collapsible hidden");
   const handleDropdown = () => {
@@ -12,6 +12,7 @@ export function HambergerMenu() {
     const checkbox = document.getElementById("burger-check");
     checkbox.checked = false;
   }
+  
   return (
     <div>
       <div className="burger_menu_wrap">

@@ -10,6 +10,7 @@ resource "aws_security_group" "default" {
     to_port   = 8000
     protocol  = "tcp"
     cidr_blocks = [
+      "0.0.0.0/0",
       "10.0.0.0/8",
     ]
   }
@@ -63,6 +64,14 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "https any outbound"
+  }
+
+  egress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Postgres any outbound"
   }
 
   # Instance should allow ifselt to send the log file to kafka
