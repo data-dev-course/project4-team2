@@ -175,10 +175,11 @@ def fetch_word_corrections_from_db(start_time, end_time):
     corrected_word, 
     content_tag, 
     COUNT(*) AS occurrence_count,
-    ROW_NUMBER() OVER (PARTITION BY recorded_time, content_tag ORDER BY COUNT(*) DESC) AS rank
+    ROW_NUMBER() OVER (PARTITION BY recorded_time, content_tag ORDER BY COUNT(*) DESC) AS rank,
+    check_reult
 FROM public."test_DM_HourlyWordCorrection"
 WHERE recorded_time BETWEEN %s AND %s
-GROUP BY recorded_time, incorrect_word, corrected_word, content_tag
+GROUP BY recorded_time, incorrect_word, corrected_word, content_tag,check_reult
 
         """
         params = [start_time, end_time]

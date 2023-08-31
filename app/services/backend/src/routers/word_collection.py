@@ -148,7 +148,7 @@ def get_rank(
 
         processed_data = {}
         for record in raw_data:
-            timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank = record
+            timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank,check_result = record
             timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
             if timestamp_str not in processed_data:
@@ -161,7 +161,8 @@ def get_rank(
                 "incorrect_word": incorrect_word,
                 "correct_word": correct_word,
                 "occurrence_count": occurrence_count,
-                "rank": rank
+                "rank": rank,
+                'check_result' : check_result
             })
 
         result = []
@@ -319,28 +320,30 @@ def get_word_tags(
         raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
 
     for record in raw_data:
-        timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank = record
-        timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
-        
-        if timestamp_str not in mention_counts:
-            mention_counts[timestamp_str] = {
-                "total": 0,
-                "news": 0,
-                "webtoon": 0,
-                "youtube": 0,
-                "search_word": search_word,
-                "incorrect_word": [],
-                "correct_word": []
-            }
+      timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank, check_result = record
+      timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
-        mention_counts[timestamp_str][content_tag] += occurrence_count
-        mention_counts[timestamp_str]["total"] += occurrence_count
+      if (search_word == incorrect_word) or (search_word == correct_word):
+          if timestamp_str not in mention_counts:
+              mention_counts[timestamp_str] = {
+                  "total": 0,
+                  "news": 0,
+                  "webtoon": 0,
+                  "youtube": 0,
+                  "check_result" : check_result,
+                  "search_word": search_word,
+                  "incorrect_word": [],
+                  "correct_word": []
+              }
 
-        if (search_word == incorrect_word) or (search_word == correct_word):
-            if (incorrect_word not in mention_counts[timestamp_str]["incorrect_word"]):
-                mention_counts[timestamp_str]["incorrect_word"].append(incorrect_word)
-            if  (correct_word not in mention_counts[timestamp_str]["correct_word"]):
-                mention_counts[timestamp_str]["correct_word"].append(correct_word)
+          mention_counts[timestamp_str][content_tag] += occurrence_count
+          mention_counts[timestamp_str]["total"] += occurrence_count
+
+          if incorrect_word not in mention_counts[timestamp_str]["incorrect_word"]:
+              mention_counts[timestamp_str]["incorrect_word"].append(incorrect_word)
+          
+          if correct_word not in mention_counts[timestamp_str]["correct_word"]:
+              mention_counts[timestamp_str]["correct_word"].append(correct_word)
 
 
     # 결과 데이터 생성
