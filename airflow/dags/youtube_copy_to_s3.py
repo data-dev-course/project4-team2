@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from datetime import datetime, timedelta
 from plugins import s3, youtube_api, youtube_api_v2
 
@@ -30,4 +31,10 @@ with DAG(
         op_args=[get_youtube_data_task.output]
     )
     
-    get_youtube_data_task >> upload_to_s3_task
+    
+    trigger_youtube_copy_to_redshift = TriggerDagRunOperator(
+        task_id='trigger_youtube_copy_to_redshift',
+        trigger_dag_id = 'youtube_copy_to_redshift',
+        reset_dag_run=True,
+    )
+    get_youtube_data_task >> upload_to_s3_task >> trigger_youtube_copy_to_redshift
