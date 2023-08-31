@@ -10,7 +10,7 @@ router = APIRouter()
 
 @router.get(
     "/",
-    summary="댓글 개수 가져오기",
+    summary="데이터 수집 현황 - [ 댓글 수집 현황, 시간별 수집 현황 ]",
     description="""
 ## Summary :
 각 태그 별, 전체 태그로 해서 각 날짜 ( 1시간 단위 ) 별 수집된 댓글의 개수 현황를 보여줍니다

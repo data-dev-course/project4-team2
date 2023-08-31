@@ -11,7 +11,7 @@ router = APIRouter()
 
 @router.get(
     "/",
-    summary="문법 상태 가져오기",
+    summary="분석 대시보드 - 댓글 오류 비율",
     description="""
 ## Summary :
 각 태그 별, 전체 태그로 해서  전체 문장개수,문법이 틀린 문장, 문법 맞춘 문장, 문장 오류율 ( 백분율 ) 을 보여줍니다.

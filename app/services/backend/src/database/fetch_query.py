@@ -179,8 +179,46 @@ def fetch_word_corrections_from_db(start_time, end_time):
     check_reult
 FROM public."test_DM_HourlyWordCorrection"
 WHERE recorded_time BETWEEN %s AND %s
+AND check_reult > 0
 GROUP BY recorded_time, incorrect_word, corrected_word, content_tag,check_reult
 
+        """
+        params = [start_time, end_time]
+        
+        conn = conn_rds_postgre.connect_to_db()
+        if not conn:
+            return None
+        
+        with conn.cursor() as cursor:
+            cursor.execute(query, params)
+            results = cursor.fetchall()
+        
+        return results
+    
+    except Exception as e:
+        print(f"error: {e}")
+        raise
+
+
+
+def fetch_check_result_counts(start_time, end_time):
+    try:
+        query = """
+            SELECT
+                recorded_time,
+                content_tag,
+                check_reult,
+                COUNT(*) as count
+            FROM
+                public."test_DM_HourlyWordCorrection"
+            WHERE
+                recorded_time BETWEEN %s AND %s
+            GROUP BY
+                recorded_time,
+                content_tag,
+                check_reult
+            ORDER BY
+                recorded_time DESC
         """
         params = [start_time, end_time]
         

@@ -55,9 +55,9 @@ app.include_router(word_collection.router, prefix="/word_collection", tags=["wor
 
 
 
+
 # This path is for health check or test
 @app.get("/")
 async def root():
     return {"Connect"}
 
-  
