@@ -41,8 +41,6 @@ with DAG(
                         AND original_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
                         AND checked_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
                     )
-                """,
-                """
                 CREATE TABLE analytics.hour_word_corretion_v2 AS (
                     SELECT 
                         r.recorded_time, 
