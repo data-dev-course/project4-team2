@@ -83,7 +83,7 @@ with DAG(
         autocommit = True,
         sql = ["DROP TABLE IF EXISTS hour_word_corretion_v2;", 
                 """
-                CREATE TABLE hour_word_corretion (
+                CREATE TABLE hour_word_corretion_v2 (
                     recorded_time timestamp,
                     incorrect_word varchar(65535), 
                     corrected_word varchar(65535),
