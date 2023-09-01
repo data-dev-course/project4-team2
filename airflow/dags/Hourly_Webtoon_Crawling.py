@@ -9,7 +9,7 @@ from plugins import webtoon_crawling
 DAG_ID = "Hourly_Webtoon_Crawling"
 dag = DAG(
     DAG_ID,
-    schedule_interval="0 0 * * *",
+    schedule_interval="0 * * * *",
     start_date=datetime(2023, 8, 20),
     catchup=False,
 )
