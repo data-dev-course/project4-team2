@@ -28,9 +28,8 @@ with DAG(
         redshift_conn_id = 'redshift_dev_db',
         autocommit = True,
         sql = ["DROP TABLE IF EXISTS analytics.hour_word_corretion_v2;",
-                """
-                CREATE TABLE analytics.hour_word_corretion_v2 AS (
-                    WITH CTE_Redshift AS (
+               """
+               WITH CTE_Redshift AS (
                         SELECT 
                             DATE_TRUNC('hour', checked_date) AS recorded_time,
                             original_word AS incorrect_word,
@@ -42,7 +41,9 @@ with DAG(
                         AND original_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
                         AND checked_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
                     )
-
+                """,
+                """
+                CREATE TABLE analytics.hour_word_corretion_v2 AS (
                     SELECT 
                         r.recorded_time, 
                         r.incorrect_word, 
