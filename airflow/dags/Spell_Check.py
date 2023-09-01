@@ -3,6 +3,11 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.providers.amazon.aws.transfers.redshift_to_s3 import RedshiftToS3Operator
 from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOperator
 from airflow.providers.amazon.aws.operators.redshift_sql import RedshiftSQLOperator
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+from airflow.operators.python import BranchPythonOperator
+from airflow.utils.task_group import TaskGroup
+from airflow.models import TaskInstance
+from airflow.operators.dummy import DummyOperator
 
 from airflow.models import Variable
 from plugins import spell_checker
@@ -124,31 +129,52 @@ with DAG(
         method='APPEND'
     )
     
+    # def check(**context):
+    #     ti = context['task_instance']
+    #     result_copy_comment = ti.xcom_pull(task_id='copy_comment_checked_to_redshift')
+    #     result_word_comment = ti.xcom_pull(task_id='copy_word_checked_to_redshift')
+        
+    #     print("result_copy_comment state:",result_copy_comment)
+    #     print("result_word_comment state:",result_word_comment)
+        
+    #     return "trigger_DM_group"
+        
+    # #
+    # check_success = BranchPythonOperator(
+    #     task_id='check_success',
+    #     python_callable=check
+        
+    # )
     
-    # with TaskGroup(group_id='group_1') as TriggerGroup:
+    dummy_task = DummyOperator(
+        task_id='dummy'
+    )
+    
+    with TaskGroup(group_id='trigger_DM_group') as TriggerGroup:
         
-    #     trigger_dm_HCS_to_rds = TriggerDagRunOperator(
-    #         task_id='trigger_dm_HCS_to_rds',
-    #         trigger_dag_id = 'DM_Hourly_Comment_Summary_To_RDS',
-    #         reset_dag_run=False,
-    #     )
+        trigger_dm_HCS_to_rds = TriggerDagRunOperator(
+            task_id='trigger_dm_HCS_to_rds',
+            trigger_dag_id = 'DM_Hourly_Comment_Summary_To_RDS',
+            reset_dag_run=False,
+        )
         
-    #     trigger_dm_DGS_to_rds = TriggerDagRunOperator(
-    #         task_id='trigger_dm_DGS_to_rds',
-    #         trigger_dag_id = 'DM_Daily_Grammer_Stats_To_RDS',
-    #         reset_dag_run=False,
-    #     )
+        trigger_dm_DGS_to_rds = TriggerDagRunOperator(
+            task_id='trigger_dm_DGS_to_rds',
+            trigger_dag_id = 'DM_Daily_Grammer_Stats_To_RDS',
+            reset_dag_run=False,
+        )
         
-    #     trigger_dm_HWC_to_rds = TriggerDagRunOperator(
-    #         task_id='trigger_dm_HWC_to_rds',
-    #         trigger_dag_id = 'DM_Hourly_Word_Correction_To_RDS',
-    #         reset_dag_run=False,
-    #     )
+        trigger_dm_HWC_to_rds = TriggerDagRunOperator(
+            task_id='trigger_dm_HWC_to_rds',
+            trigger_dag_id = 'DM_Hourly_Word_Correction_To_RDS',
+            reset_dag_run=False,
+        )
         
         
     
     transfer_redshift_to_s3 >> spell_check_and_load_s3 >> [check_spell_check_comment_table , check_spell_check_word_table]
-    check_spell_check_comment_table >> copy_comment_checked_to_redshift  
-    check_spell_check_word_table >> copy_word_checked_to_redshift
+    check_spell_check_comment_table >> copy_comment_checked_to_redshift  >> dummy_task
+    check_spell_check_word_table >> copy_word_checked_to_redshift >> dummy_task
+    dummy_task >>  TriggerGroup
     
     
