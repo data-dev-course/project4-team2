@@ -170,18 +170,13 @@ def fetch_word_corrections_from_db(start_time, end_time):
     try:
         print(f'---- query start - {datetime.now()} ----')
         query = """
-            SELECT 
-    recorded_time, 
-    incorrect_word, 
-    corrected_word, 
-    content_tag, 
-    COUNT(*) AS occurrence_count,
-    ROW_NUMBER() OVER (PARTITION BY recorded_time, content_tag ORDER BY COUNT(*) DESC) AS rank,
-    check_reult
-FROM public.hour_word_corretion
-WHERE recorded_time BETWEEN %s AND %s
-AND check_reult > 0
-GROUP BY recorded_time, incorrect_word, corrected_word, content_tag,check_reult
+            SELECT *
+            FROM
+                public.hour_word_corretion_v2
+            WHERE
+                recorded_time BETWEEN %s AND %s
+            ORDER BY
+                recorded_time DESC
         """
         params = [start_time, end_time]
         
