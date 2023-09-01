@@ -29,30 +29,29 @@ with DAG(
         autocommit = True,
         sql = ["DROP TABLE IF EXISTS analytics.hour_word_corretion_v2;",
                """
-               WITH CTE_Redshift AS (
-                        SELECT 
-                            DATE_TRUNC('hour', checked_date) AS recorded_time,
-                            original_word AS incorrect_word,
-                            checked_word AS corrected_word,
-                            content_tag,
-                            check_reult
-                        FROM "dev"."analytics"."spell_check_word"
-                        WHERE recorded_time >= CURRENT_DATE - INTERVAL '1 month'
-                        AND original_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
-                        AND checked_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
-                    )
-                CREATE TABLE analytics.hour_word_corretion_v2 AS (
+                CREATE TABLE analytics.hour_word_corretion_v2 AS 
+                SELECT 
+                    r.recorded_time, 
+                    r.incorrect_word, 
+                    r.corrected_word, 
+                    r.content_tag, 
+                    COUNT(*) AS occurrence_count,
+                    ROW_NUMBER() OVER (PARTITION BY r.recorded_time, r.content_tag ORDER BY COUNT(*) DESC) AS rank,
+                    r.check_reult
+                FROM (
                     SELECT 
-                        r.recorded_time, 
-                        r.incorrect_word, 
-                        r.corrected_word, 
-                        r.content_tag, 
-                        COUNT(*) AS occurrence_count,
-                        ROW_NUMBER() OVER (PARTITION BY r.recorded_time, r.content_tag ORDER BY COUNT(*) DESC) AS rank,
-                        r.check_reult
-                    FROM CTE_Redshift r
-                    WHERE r.check_reult > 0
-                    GROUP BY r.recorded_time, r.incorrect_word, r.corrected_word, r.content_tag, r.check_reult
+                        DATE_TRUNC('hour', checked_date) AS recorded_time,
+                        original_word AS incorrect_word,
+                        checked_word AS corrected_word,
+                        content_tag,
+                        check_reult
+                    FROM "dev"."analytics"."spell_check_word"
+                    WHERE recorded_time >= CURRENT_DATE - INTERVAL '1 month'
+                    AND original_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
+                    AND checked_word !~ '[ㄱ-ㅎㅏ-ㅣㅋㅎㅉ]+'
+                ) r
+                WHERE r.check_reult > 0
+                GROUP BY r.recorded_time, r.incorrect_word, r.corrected_word, r.content_tag, r.check_reult;
                     )
                 """]
     )
