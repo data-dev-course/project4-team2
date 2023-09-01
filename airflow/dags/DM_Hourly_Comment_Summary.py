@@ -21,13 +21,13 @@ with DAG(
     schedule_interval=None
 )as dag:
     
-    sensor = ExternalTaskSensor(
-        task_id='wait_for_spell_check',
-        external_dag_id='Spell_Check',
-        external_task_ids=['copy_comment_checked_to_redshift', 'copy_word_checked_to_redshift'],
-        failed_states=[State.SKIPPED],
-        mode='poke'
-    )
+    # sensor = ExternalTaskSensor(
+    #     task_id='wait_for_spell_check',
+    #     external_dag_id='Spell_Check',
+    #     external_task_ids=['copy_comment_checked_to_redshift', 'copy_word_checked_to_redshift'],
+    #     failed_states=[State.SKIPPED],
+    #     mode='poke'
+    # )
     
 
     s3_folder = "DM/"
@@ -102,7 +102,7 @@ with DAG(
         );"""
     )
 
-    sensor >> create_dm >> dm_to_s3 >> check_created_table >> s3_to_rds
+    create_dm >> dm_to_s3 >> check_created_table >> s3_to_rds
         
         
     
