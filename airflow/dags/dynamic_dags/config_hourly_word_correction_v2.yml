@@ -1,0 +1,3 @@
+dag_id: 'Hourly_Word_Correction_V2'
+table: 'hour_word_corretion_v2'
+schema: 'analytics'
