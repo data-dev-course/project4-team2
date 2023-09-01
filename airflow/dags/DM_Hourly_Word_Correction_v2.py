@@ -90,7 +90,7 @@ with DAG(
                     content_tag varchar(10),
                     occurrence_count int,
                     rank int,
-                    check_reult int,
+                    check_reult int
                );
             """]
     )
