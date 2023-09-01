@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import "../App.css";
-import sample_data from "../assets/response_sample.json";
 
 const colorset = [
     "#fa5e68",
@@ -18,6 +17,7 @@ const colorset = [
 function dataSetModification(data, group, date_type) {
     // get the data and apply reducer; according to each time, 
     // gather the content and count value of each content.
+
     const groupedData = data.reduce((accumulator, item) => {
         const time = item["recorded_time"];
         
@@ -47,6 +47,20 @@ function dataSetModification(data, group, date_type) {
     const time = Object.keys(groupedData)
                 .sort((a, b) => a - b);
 
+    const format_time = time.map(time => {
+        if (date_type === "days") {
+            const date = time.split("-");
+            const utcDate = new Date(Date.UTC(parseInt(date[0]), parseInt(date[1])- 1, parseInt(date[2]), 0, 0, 0));
+            const kstDateString = utcDate.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric'});
+            return kstDateString
+        } else {
+            const time_s = time.split(":");
+            const utcDate = new Date(Date.UTC(2023, 0, 1, parseInt(time_s[0]), parseInt(time_s[1]), 0)); // YYYY, MM (0-based), DD, HH, MM, SS
+            const kstTimeOnly = utcDate.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false });
+            return kstTimeOnly
+        }
+    })
+
     const contents = group
     
     const datasets = contents.map((content,i) => {
@@ -65,15 +79,11 @@ function dataSetModification(data, group, date_type) {
             hoverOffset: 4,
         };
     });
-    return [time, datasets];
+    return [format_time, datasets];
 }
 
 function BarChartTime(props) {
     const chartRef = useRef(null);
-    //const {status, data} = useQuery(["strayanimal", "quarterdata"], async () => {
-    //    const docSnap = await getDoc(doc(db, "strayanimal", "차트07_분기별_유기발생_건수"));
-    //    return docSnap.data().data;
-    //}
     const chartSetting = (labels, datasets) => {
         const ctx = chartRef.current.getContext('2d');
             window.mybarchart = new Chart(ctx, {
@@ -132,10 +142,10 @@ function BarChartTime(props) {
         if(chartStatus !== undefined) {
             chartStatus.destroy()
         }
-        const [times, datasets] = dataSetModification(sample_data, ["youtube", "news", "webtoon"], props.dateType)
+        const [times, datasets] = dataSetModification(props.data, ["news", "youtube", "webtoon"], props.dateType)
         chartSetting(times, datasets)
         
-    }, [props.dateType])
+    }, [props.dateType, props.data])
     //if (status === "loading") {
     //    return <Loading/>;
     //}
@@ -158,7 +168,7 @@ function DataPerTimeChart(props) {
                 </select>
             </div>
             <div className="chart min-w-[280px] py-5 min-h-fit flex justify-center gap-1">
-                <BarChartTime dateType={dateType}/>
+                <BarChartTime dateType={dateType} data={props.data}/>
             </div>
         </div>
     );
