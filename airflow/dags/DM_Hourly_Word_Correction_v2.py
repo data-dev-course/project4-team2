@@ -52,7 +52,6 @@ with DAG(
                 ) r
                 WHERE r.check_reult > 0
                 GROUP BY r.recorded_time, r.incorrect_word, r.corrected_word, r.content_tag, r.check_reult;
-                    )
                 """]
     )
     
