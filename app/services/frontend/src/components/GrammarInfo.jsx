@@ -32,7 +32,7 @@ function GrammarInfo() {
     const {status, data} = useQuery({
         queryKey: ['data-info', "pertags"],
         queryFn: async () => {
-            var url = new URL(import.meta.env.VITE_API_ENDPOINT+'/comment_count')
+            var url = new URL(import.meta.env.VITE_API_ENDPOINT+'/comment_count/')
             const now = new Date();
             const weekbefore = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
             var params = {
