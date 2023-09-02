@@ -34,8 +34,7 @@ origins = [
     "http://localhost",
     "http://localhost:5173",
     "https://main.d3s3s9pqwwjtn7.amplifyapp.com",
-    "https://korrect.kr",
-    "http://korrect.kr"
+    "https://korrect.kr"
 ]
 
 app.add_middleware(
