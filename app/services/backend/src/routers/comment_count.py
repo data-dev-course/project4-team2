@@ -88,7 +88,41 @@ async def get_comments(
         
         if not results:
             raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
-        return results
+
+        # 데이터 가공하여 원하는 형태로 구성
+        processed_results = []
+        current_recorded_time = None
+        current_entry = None
+        all_count = 0
+
+        for recorded_time, content_tag, total_comment_count in results:
+            # 각 시간대가 바뀔 때 all_count를 0으로 초기화합니다.
+            if recorded_time != current_recorded_time:
+                all_count = 0
+
+            all_count += total_comment_count
+
+            if recorded_time != current_recorded_time:
+                if current_entry is not None:
+                    processed_results.append(current_entry)
+                current_recorded_time = recorded_time
+                current_entry = {
+                    "recorded_time": recorded_time,
+                    "tags": []
+                }
+            
+            current_entry["tags"].append({
+                "content_tag": content_tag,
+                "total_comment_count": total_comment_count
+            })
+            current_entry["all_count"] = all_count  # 각 시간대별로 all_count 업데이트
+
+        if current_entry is not None:
+            processed_results.append(current_entry)
+        
+        return processed_results  # 데이터 가공 후의 결과 반환
     
     except ConnectionError:  # 데이터베이스 연결에 실패한 경우에 대한 예외
         raise HTTPException(status_code=500, detail="Unable to connect to the database.")
+    except Exception as e:  # 다른 예외들을 처리하기 위한 코드
+        raise HTTPException(status_code=500, detail=str(e))
