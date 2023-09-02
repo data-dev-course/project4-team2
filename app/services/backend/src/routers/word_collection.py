@@ -118,7 +118,7 @@ def get_rank(
     start_time: str = Query(default=start_example, example=start_example, description="시작 시간"),
     end_time: str = Query(default=end_example, example=end_example, description="끝 시간"),
     tag: str = Query(None, description="태그 [ youtube, news, webtoon ]")
-) -> List[Dict[str, Any]]:
+):
     print(f'start get rank - {datetime.now()}')
     try:
         if start_time:
@@ -139,7 +139,7 @@ def get_rank(
         processed_data = {}
         for record in raw_data:
             timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank,check_result = record
-            timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S").replace(" ", "T")
 
             if timestamp_str not in processed_data:
                 processed_data[timestamp_str] = {}
@@ -158,7 +158,7 @@ def get_rank(
         result = []
 
         for timestamp, content_data in sorted(processed_data.items()):
-            timestamp_data = {"timestamp": timestamp}
+            timestamp_data = {"recorded_time": timestamp}
 
             if tag:
                 if tag in content_data:
@@ -299,25 +299,30 @@ def get_word_state(
         if data is None:
             raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
 
-        results = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
+        results = []
+        processed_data = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
 
         for entry in data:
             recorded_time, content_tag, check_result, count = entry  # 튜플 언패킹
 
             if tag:  # tag가 지정되면 해당 tag만 포함
                 if tag == content_tag:
-                    results[recorded_time][content_tag][check_result] += count
+                    processed_data[recorded_time][content_tag][check_result] += count
             else:  # tag가 지정되지 않으면 모든 tag와 total 포함
-                results[recorded_time][content_tag][check_result] += count
-                results[recorded_time]['total'][check_result] += count
+                processed_data[recorded_time][content_tag][check_result] += count
+                processed_data[recorded_time]['total'][check_result] += count
+
+        for recorded_time, tags in processed_data.items():
+            formatted_time = recorded_time.strftime("%Y-%m-%dT%H:%M:%S")
+            results.append({
+                "recorded_time": formatted_time,
+                "tags": tags
+            })
 
         return results
 
     except ConnectionError:  # 데이터베이스 연결에 실패한 경우에 대한 예외
         raise HTTPException(status_code=500, detail="Unable to connect to the database.")
-
-
-
 
 
 # @router.get(

@@ -88,7 +88,6 @@ async def get_comments(
         
         if not results:
             raise HTTPException(status_code=status.HTTP_204_NO_CONTENT)
-        
         return results
     
     except ConnectionError:  # 데이터베이스 연결에 실패한 경우에 대한 예외
