@@ -48,57 +48,66 @@ router = APIRouter()
 ```json
 [
   {
-    "timestamp": "2023-08-31 13:00:00",
+    "recorded_time": "2023-09-01T07:00:00",
     "total": [
       {
-        "incorrect_word": "계시는것이",
-        "correct_word": "계시는 것이",
-        "occurrence_count": 1,
+        "incorrect_word": "니가",
+        "correct_word": "네가",
+        "occurrence_count": 111,
         "rank": 1,
-        "check_result": 2
+        "check_result": 1
       },
       {
-        "incorrect_word": "거라고.본인께서도",
-        "correct_word": "거라고. 본인께서도",
-        "occurrence_count": 1,
+        "incorrect_word": "니들이",
+        "correct_word": "너희들이",
+        "occurrence_count": 74,
         "rank": 2,
-        "check_result": 2
+        "check_result": 1
       },
       {
-        "incorrect_word": "좋지않은것",
-        "correct_word": "좋지 않은 것",
-        "occurrence_count": 1,
+        "incorrect_word": "니",
+        "correct_word": "네",
+        "occurrence_count": 72,
         "rank": 3,
-        "check_result": 2
+        "check_result": 1
       },
       {
-        "incorrect_word": "지들이",
-        "correct_word": "자기들이",
-        "occurrence_count": 1,
+        "incorrect_word": "니들",
+        "correct_word": "너희들",
+        "occurrence_count": 60,
         "rank": 4,
         "check_result": 1
       },
       {
-        "incorrect_word": "윤석열정부.",
-        "correct_word": "윤석열 정부.",
-        "occurrence_count": 1,
+        "incorrect_word": "지들",
+        "correct_word": "자기들",
+        "occurrence_count": 60,
         "rank": 5,
+        "check_result": 1
+      },
+      {
+        "incorrect_word": "안하고",
+        "correct_word": "안 하고",
+        "occurrence_count": 47,
+        "rank": 6,
         "check_result": 2
       },
       {
-        "incorrect_word": "석열이",
-        "correct_word": "서열이",
-        "occurrence_count": 1,
-        "rank": 6,
-        "check_result": 4
+        "incorrect_word": "걍",
+        "correct_word": "그냥",
+        "occurrence_count": 44,
+        "rank": 7,
+        "check_result": 1
       },
       {
-        "incorrect_word": "역대급",
-        "correct_word": "역대급",
-        "occurrence_count": 1,
-        "rank": 7,
-        "check_result": 3
-      },,,...
+        "incorrect_word": "하는게",
+        "correct_word": "하는 게",
+        "occurrence_count": 39,
+        "rank": 8,
+        "check_result": 2
+      },
+      {
+        "incorrect_word": "하는거",,,,...
 ```
 - **204 No Content**  
 해당 기간 또는 태그에 맞는 댓글이 존재하지 않을 경우 반환됩니다. 본문 내용이 없음을 나타냅니다.
@@ -245,23 +254,56 @@ def get_rank(
 - **200 OK**  
 요청이 성공적으로 처리되었으며, 해당 조건에 맞는 댓글 목록을 반환합니다.  
 응답 본문 예시:
-```json
-{
-  "2023-08-31T13:00:00": {
-    "news": {
-      "1": 2,
-      "2": 12,
-      "3": 1,
-      "4": 2
-    },
-    "total": {
-      "1": 2,
-      "2": 12,
-      "3": 1,
-      "4": 2
+[
+  {
+    "recorded_time": "2023-09-01T07:00:00",
+    "tags": {
+      "news": {
+        "0": 38209,
+        "1": 5438,
+        "2": 32536,
+        "3": 1645,
+        "4": 3609
+      },
+      "total": {
+        "0": 49417,
+        "1": 6898,
+        "2": 39932,
+        "3": 2309,
+        "4": 5114
+      },
+      "webtoon": {
+        "0": 11208,
+        "1": 1460,
+        "2": 7396,
+        "3": 664,
+        "4": 1505
+      }
     }
-  }
-},,,...
+  },
+  {
+    "recorded_time": "2023-09-01T06:00:00",
+    "tags": {
+      "news": {
+        "0": 33802,
+        "1": 4437,
+        "2": 29151,
+        "3": 1394,
+        "4": 3248
+      },
+      "total": {
+        "0": 33802,
+        "1": 4437,
+        "2": 29151,
+        "3": 1394,
+        "4": 3248
+      }
+    }
+  },
+  {
+    "recorded_time": "2023-09-01T05:00:00",
+    "tags": {
+      "news": {,,,...
 ```
 - **204 No Content**  
 해당 기간 또는 태그에 맞는 댓글이 존재하지 않을 경우 반환됩니다. 본문 내용이 없음을 나타냅니다.
