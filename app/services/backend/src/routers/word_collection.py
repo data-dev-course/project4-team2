@@ -48,66 +48,79 @@ router = APIRouter()
 ```json
 [
   {
-    "recorded_time": "2023-09-01T07:00:00",
-    "total": [
-      {
-        "incorrect_word": "니가",
-        "correct_word": "네가",
-        "occurrence_count": 111,
-        "rank": 1,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "니들이",
-        "correct_word": "너희들이",
-        "occurrence_count": 74,
-        "rank": 2,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "니",
-        "correct_word": "네",
-        "occurrence_count": 72,
-        "rank": 3,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "니들",
-        "correct_word": "너희들",
-        "occurrence_count": 60,
-        "rank": 4,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "지들",
-        "correct_word": "자기들",
-        "occurrence_count": 60,
-        "rank": 5,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "안하고",
-        "correct_word": "안 하고",
-        "occurrence_count": 47,
-        "rank": 6,
-        "check_result": 2
-      },
-      {
-        "incorrect_word": "걍",
-        "correct_word": "그냥",
-        "occurrence_count": 44,
-        "rank": 7,
-        "check_result": 1
-      },
-      {
-        "incorrect_word": "하는게",
-        "correct_word": "하는 게",
-        "occurrence_count": 39,
-        "rank": 8,
-        "check_result": 2
-      },
-      {
-        "incorrect_word": "하는거",,,,...
+    "recorded_time": "2023-09-01T16:00:00",
+    "total": {
+      "rank": {
+        "1": {
+          "incorrect_word": "스피로스",
+          "correct_word": "세피로스",
+          "occurrence_count": 71,
+          "check_result": 4
+        },
+        "2": {
+          "incorrect_word": "넘",
+          "correct_word": "너무",
+          "occurrence_count": 39,
+          "check_result": 4
+        },
+        "3": {
+          "incorrect_word": "안떨어져?",
+          "correct_word": "안 떨어져?",
+          "occurrence_count": 38,
+          "check_result": 2
+        },
+        "4": {
+          "incorrect_word": "걍",
+          "correct_word": "그냥",
+          "occurrence_count": 33,
+          "check_result": 1
+        },
+        "5": {
+          "incorrect_word": "신이야!보민",
+          "correct_word": "신이야! 보민",
+          "occurrence_count": 31,
+          "check_result": 2
+        },
+        "6": {
+          "incorrect_word": "스피로스가",
+          "correct_word": "슬피 로스가",
+          "occurrence_count": 28,
+          "check_result": 4
+        },
+        "7": {
+          "incorrect_word": "엘프!!!다음화",
+          "correct_word": "엘프!!! 다음 화",
+          "occurrence_count": 24,
+          "check_result": 2
+        },
+        "8": {
+          "incorrect_word": "왤케",
+          "correct_word": "왜 이렇게",
+          "occurrence_count": 23,
+          "check_result": 1
+        },
+        "9": {
+          "incorrect_word": "존나",
+          "correct_word": "존나",
+          "occurrence_count": 22,
+          "check_result": 3
+        },
+        "10": {
+          "incorrect_word": "네컷",
+          "correct_word": "네 컷",
+          "occurrence_count": 21,
+          "check_result": 2
+        }
+      }
+    }
+  },
+  {
+    "recorded_time": "2023-09-01T17:00:00",
+    "total": {
+      "rank": {
+        "1": {
+          "incorrect_word": "니가",
+          "correct_word": "네가",,,,,...
 ```
 - **204 No Content**  
 해당 기간 또는 태그에 맞는 댓글이 존재하지 않을 경우 반환됩니다. 본문 내용이 없음을 나타냅니다.
@@ -147,22 +160,24 @@ def get_rank(
 
         processed_data = {}
         for record in raw_data:
-            timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank,check_result = record
+            timestamp, incorrect_word, correct_word, content_tag, occurrence_count, rank, check_result = record
             timestamp_str = timestamp.strftime("%Y-%m-%d %H:%M:%S").replace(" ", "T")
 
             if timestamp_str not in processed_data:
                 processed_data[timestamp_str] = {}
 
             if content_tag not in processed_data[timestamp_str]:
-                processed_data[timestamp_str][content_tag] = []
+                processed_data[timestamp_str][content_tag] = {}
 
-            processed_data[timestamp_str][content_tag].append({
+            if "rank" not in processed_data[timestamp_str][content_tag]:
+                processed_data[timestamp_str][content_tag]["rank"] = {}
+
+            processed_data[timestamp_str][content_tag]["rank"][str(rank)] = {
                 "incorrect_word": incorrect_word,
                 "correct_word": correct_word,
                 "occurrence_count": occurrence_count,
-                "rank": rank,
-                'check_result' : check_result
-            })
+                "check_result": check_result
+            }
 
         result = []
 
@@ -171,45 +186,26 @@ def get_rank(
 
             if tag:
                 if tag in content_data:
-                    sorted_words = sorted(content_data[tag], key=lambda x: x["occurrence_count"], reverse=True)
-                    unique_ranks = set()
-                    result_words = []
-
-                    for word in sorted_words:
-                        if word["rank"] not in unique_ranks:
-                            result_words.append(word)
-                            unique_ranks.add(word["rank"])
-                        if len(result_words) >= 10:
-                            break
-
-                    timestamp_data[tag] = result_words
+                    timestamp_data[tag] = {"rank": content_data[tag]["rank"]}
                 else:
                     continue
             else:
-                all_words = []
-                for words in content_data.values():
-                    all_words.extend(words)
-                all_words.sort(key=lambda x: x["occurrence_count"], reverse=True)
+                # Combining all tags and getting top 10 by occurrence count
+                all_ranks = {}
+                for tag_data in content_data.values():
+                    all_ranks.update(tag_data["rank"])
 
-                unique_ranks = set()
-                result_words = []
-
-                for word in all_words:
-                    if word["rank"] not in unique_ranks:
-                        result_words.append(word)
-                        unique_ranks.add(word["rank"])
-                    if len(result_words) >= 10:
-                        break
-
-                timestamp_data["total"] = result_words
+                all_ranks = dict(sorted(all_ranks.items(), key=lambda item: item[1]['occurrence_count'], reverse=True)[:10])
+                timestamp_data["total"] = {"rank": all_ranks}
 
             result.append(timestamp_data)
+
         print(f'end get rank - {datetime.now()}')
         return result
 
     except ConnectionError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Unable to connect to the database.")
-      
+
       
 
 
