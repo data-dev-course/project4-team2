@@ -46,7 +46,7 @@ function GrammarDashboard() {
     const {status: status1, data: data1} = useQuery({
         queryKey: ['data-info', "error_rate"],
         queryFn: async () => {
-            var url = new URL(import.meta.env.VITE_API_ENDPOINT+'/grammar_state')
+            var url = new URL(import.meta.env.VITE_API_ENDPOINT+'/grammar_state/')
             return await fetch(url)
             .then(res => res.json())
             .then(json => {return json})
