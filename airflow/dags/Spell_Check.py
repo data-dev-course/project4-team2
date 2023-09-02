@@ -164,11 +164,16 @@ with DAG(
             reset_dag_run=False,
         )
         
-        trigger_dm_HWC_to_rds = TriggerDagRunOperator(
-            task_id='trigger_dm_HWC_to_rds',
+        trigger_dm_HWCV2_to_rds = TriggerDagRunOperator(
+            task_id='trigger_dm_HWC_to_rds_v2',
             trigger_dag_id = 'DM_Hourly_Word_Correction_To_RDS_V2',
             reset_dag_run=False,
-        )       
+        )
+        trigger_dm_HWC_to_rds = TriggerDagRunOperator(
+            task_id='trigger_dm_HWC_to_rds',
+            trigger_dag_id = 'DM_Hourly_Word_Correction_To_RDS',
+            reset_dag_run=False,
+        )              
     
     transfer_redshift_to_s3 >> spell_check_and_load_s3 >> [check_spell_check_comment_table , check_spell_check_word_table]
     check_spell_check_comment_table >> copy_comment_checked_to_redshift  >> dummy_task
