@@ -43,7 +43,7 @@ function dataSetModification(data, group, date_type) {
         })
         return accumulator;
     }, {});
-    
+    console.log(groupedData)
     const time = Object.keys(groupedData)
                 .sort((a, b) => a - b);
 
@@ -79,6 +79,7 @@ function dataSetModification(data, group, date_type) {
             hoverOffset: 4,
         };
     });
+    console.log(datasets)
     return [format_time, datasets];
 }
 
@@ -96,7 +97,7 @@ function BarChartTime(props) {
                 responsive: true,
                 scales: {
                     x: {
-                        stacked: true,
+                        stacked:true,
                         grid: {
                             display: false
                         },
@@ -106,7 +107,7 @@ function BarChartTime(props) {
                     },
                     y: {
                         stacked: true,
-                        beginAtZero: false,
+                        beginAtZero: true,
                         grid: {
                             display: false
                         },
