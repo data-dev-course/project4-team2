@@ -48,7 +48,7 @@ with DAG(
             FROM "dev"."adhoc"."all_data"
             WHERE scr_date >= CURRENT_DATE - INTERVAL '1 month'
             GROUP BY DATE_TRUNC('hour', scr_date), "tag"
-            ORDER BY "recorded_time" DESC;
+            ORDER BY "recorded_time" DESC
         );
         """]
     )
