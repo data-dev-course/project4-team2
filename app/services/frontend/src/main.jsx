@@ -14,7 +14,7 @@ import {
 } from '@tanstack/react-query'
 import GrammarDashboard from './components/GrammarDashboard.jsx'
 import Ranking from './components/RankingChart.jsx'
-import Error404 from './components/error404.jsx'
+import Error404 from './components/Error404.jsx'
 
 const router = createBrowserRouter([
   {
