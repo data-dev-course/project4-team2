@@ -42,13 +42,13 @@ with DAG(
         DROP TABLE IF EXISTS analytics.hourly_comment_summary;""",
         """
         CREATE TABLE analytics.hourly_comment_summary AS (
-            SELECT DATE_TRUNC('hour', comment_date) AS "recorded_time",
+            SELECT DATE_TRUNC('hour', scr_date) AS "recorded_time",
                 COUNT(*) AS "comment_count",
                 "tag" AS "content_tag"
             FROM "dev"."adhoc"."all_data"
-            WHERE comment_date >= CURRENT_DATE - INTERVAL '1 month'
-            GROUP BY DATE_TRUNC('hour', comment_date), "tag"
-            ORDER BY "recorded_time" DESC
+            WHERE scr_date >= CURRENT_DATE - INTERVAL '1 month'
+            GROUP BY DATE_TRUNC('hour', scr_date), "tag"
+            ORDER BY "recorded_time" DESC;
         );
         """]
     )

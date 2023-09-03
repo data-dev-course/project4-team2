@@ -31,7 +31,7 @@ with DAG(
                 """
                 CREATE TABLE analytics.daily_grammer_stats AS (
                 SELECT 
-                    DATE_TRUNC('hour', a_a.comment_date) AS recorded_time,
+                    DATE_TRUNC('hour', c_c.checked_date) AS recorded_time,
                     c_c.content_tag,
                     COUNT(*) AS total_count,
                     SUM(CASE WHEN c_c.errors_count > 0 THEN 1 ELSE 0 END) AS incorrect_count,
@@ -42,9 +42,9 @@ with DAG(
                 LEFT JOIN  
                     "dev"."adhoc"."all_data" AS a_a
                 ON c_c.original_comment = a_a.comment
-                WHERE comment_date >= CURRENT_DATE - INTERVAL '1 month'
-                GROUP BY DATE_TRUNC('hour', a_a.comment_date), c_c.content_tag
-                ORDER BY DATE_TRUNC('hour', a_a.comment_date) DESC, c_c.content_tag
+                WHERE c_c.checked_date >= CURRENT_DATE - INTERVAL '1 month'
+                GROUP BY DATE_TRUNC('hour', c_c.checked_date), c_c.content_tag
+                ORDER BY DATE_TRUNC('hour', c_c.checked_date) DESC, c_c.content_tag
                 );
                """]
     )
