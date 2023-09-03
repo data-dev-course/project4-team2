@@ -24,20 +24,22 @@ function error_rate_count(dataset) {
 
 function error_for_types(dataset) {
     const time = dataset[dataset.length-1]["recorded_time"];
-
     const groupedData = dataset.reduce((accumulator, item) => {
+        //console.log(item["tags"])
         Object.keys(item["tags"]).map(content => { // news, webtoon, youtube, total
             if (!accumulator[content]) {
-                accumulator[content] = []; // Initialize as an array if it's not defined
+                accumulator[content] = [[], [], [], []]; // Initialize as an array if it's not defined
             }
-            [1, 2, 3, 4].map(i => 
-                accumulator[content].push(item["tags"][content][i]))
+            [0, 1, 2, 3].map(i => 
+                accumulator[content][i].push(item["tags"][content][i+1]))
         })
         return accumulator;
     }, {});
-    //Object.keys(groupedData).map(key => //news, naver, webtoon
-    //    groupedData[key]=groupedData[key].map(elem => elem.reduce((a, b) => a + b, 0))
-    //)
+    console.log(groupedData)
+    Object.keys(groupedData).map(key => //news, naver, webtoon
+        groupedData[key]=groupedData[key].map(elem => elem.reduce((a, b) => a + b, 0))
+    )
+    console.log(groupedData)
     return [time, groupedData]
 }
 
