@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "de-3-2-backend",
-            "image": "862327261051.dkr.ecr.ap-northeast-2.amazonaws.com/de-3-2/backend:latest",
+            "image": "${ecr_image}:latest",
             "cpu": 0,
             "portMappings": [
                 {
@@ -18,11 +18,11 @@
             "secrets": [
                 {
                     "name": "AWS_ACCESS_KEY_ID",
-                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:862327261051:secret:dev/de-3-2/env-access-key-qHgqYO"
+                    "valueFrom": "${secret_manager_value_arn}"
                 },
                 {
                     "name": "AWS_SECRET_ACCESS_KEY",
-                    "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:862327261051:secret:dev/de-3-2/env-access-secret-key-JDR3OM"
+                    "valueFrom": "${secret_manager_value_arn}"
                 }
             ],
             "logConfiguration": {
@@ -36,7 +36,7 @@
         }
     ],
     "family": "de-3-2-task",
-    "executionRoleArn": "arn:aws:iam::862327261051:role/de-3-2-ecs_execution_role",
+    "executionRoleArn": "${execution_role_arn}",
     "networkMode": "awsvpc",
     "volumes": [],
     "placementConstraints": [],
