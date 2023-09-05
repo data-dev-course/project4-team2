@@ -34,5 +34,9 @@
 
 ## Architecture
 
-![aws architecture](https://github.com/data-dev-course/project4-team2/assets/36090207/6d2f2cd0-c0c3-4bcb-b9d0-e64ac6f03cc6)
+![aws architecture](https://github.com/data-dev-course/project4-team2/assets/36090207/f3f2cf05-876a-4492-b1ac-6e288107eda7)
+
+## Result
+
+https://github.com/data-dev-course/project4-team2/assets/36090207/04ee354f-ba9f-42c1-ad28-87bfb792b35d
 
