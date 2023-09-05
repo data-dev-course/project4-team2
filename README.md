@@ -1,10 +1,17 @@
-#  KORRECT
+#  ![logo_img](https://github.com/data-dev-course/project4-team2/assets/36090207/1fea7aa7-4741-4f7e-9367-ee2f98b47b88)
 
-## **SNS 속 틀린 맞춤법 알아보기**
+### **SNS 속 틀린 맞춤법 알아보기**
 
 - 프로젝트 기간 : 2023.07.31 ~ 2023.09.04
+- 소셜미디어에서 다양한 사람들이 단 댓글을 가져와 요즘 가장 많이 틀리는 맞춤법, 틀리는 유형, 매체별 맞춤법 오류 비율 등에 대해 분석했습니다.
 
-
+## 프로젝트 구성
+- AWS 서비스를 Terraform으로 작성 및 활성화
+- 멀티 쓰레드로 동적 크롤링 및 람다를 활용한 DAG 작성
+- JinJa 템플릿을 적용한 Dynamic DAGs 작성 및 DAG 트리거
+- Github Action을 통한 DAGs 배포 및 ECR&ECS 배포 자동화
+- FastAPI를 사용해 RDS PostgreSQL을 연결해 백엔드 구성
+- Figma로 앱디자인, React 프론트 앱 구성 및 배포
 
 ## 팀 구성
 
@@ -24,3 +31,8 @@
 | CI/CD | ![Github Action](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white) |
 | Infra | ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) |
 | Tools | ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)  ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)  ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)  ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=for-the-badge&logo=Canva&logoColor=white) |
+
+## Architecture
+
+![aws architecture](https://github.com/data-dev-course/project4-team2/assets/36090207/6d2f2cd0-c0c3-4bcb-b9d0-e64ac6f03cc6)
+
